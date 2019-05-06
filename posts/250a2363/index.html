@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Groovy 入门学习小结"><meta name="keywords" content="groovy"><meta name="author" content="HJW"><meta name="copyright" content="HJW"><title>Groovy 入门学习小结 | HJW</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?3a101c3aa7d1cde834d9d6b197500902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-139524382-1', 'auto');
+ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#认识-Groovy"><span class="toc-number">1.</span> <span class="toc-text">认识 Groovy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备环境"><span class="toc-number">1.1.</span> <span class="toc-text">准备环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello-World"><span class="toc-number">1.2.</span> <span class="toc-text">Hello World</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Groovy与Java"><span class="toc-number">1.3.</span> <span class="toc-text">Groovy与Java</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#语法简介"><span class="toc-number">2.</span> <span class="toc-text">语法简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义方式"><span class="toc-number">2.1.</span> <span class="toc-text">定义方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">2.1.1.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法"><span class="toc-number">2.1.2.</span> <span class="toc-text">方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串"><span class="toc-number">2.1.3.</span> <span class="toc-text">字符串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#循环"><span class="toc-number">2.2.</span> <span class="toc-text">循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Groovy-集合"><span class="toc-number">2.3.</span> <span class="toc-text">Groovy 集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#映射"><span class="toc-number">2.4.</span> <span class="toc-text">映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包"><span class="toc-number">2.5.</span> <span class="toc-text">闭包</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/17232182?s=460&amp;v=4"></div><div class="author-info__name text-center">HJW</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/hjwjw">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">88</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">62</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">22</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">HJW</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">Groovy 入门学习小结</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-08-01</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Groovy/">Groovy</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><blockquote>
+<p>Groovy 是 JVM 的一个替代语言，替代 是指可以用 Groovy 在 Java 平台上进行 Java 编程，使用方式基本与使用 Java 代码的方式相同。在编写新应用程序时，Groovy 代码能够与 Java 代码很好地结合，也能用于扩展现有代码。目前的 Groovy 版本是 1.5.4，在 Java 1.4 和 Java 5 平台上都能使用，也能在 Java 6 上使用。<br>Groovy 的一个好处是，它的语法与 Java 语言的语法很相似。可以将它想像成 Java 语言的一种更加简单、表达能力更强的变体。</p>
+</blockquote>
+<h1 id="认识-Groovy"><a href="#认识-Groovy" class="headerlink" title="认识 Groovy"></a>认识 Groovy</h1><h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h2><pre><code>在Eclipse中安装Groovy 的插件。
+安装的Url 为：http://dist.codehaus.org/groovy/distributions/update/
+</code></pre><hr>
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><blockquote>
+<p>在学习之前做一个简单的Hello World</p>
+</blockquote>
+<ul>
+<li><p>在Eclipse 中新建项目。</p>
+<pre><code>new &gt; other &gt;Groovy &gt; Groovy Project 
+</code></pre><p>  ​    Eclipse 自动帮我们把Groovy需要的jar包添加上了。</p>
+</li>
+<li><p>在src 上建一个类</p>
+<pre><code>New &gt; other &gt; Groovy &gt; Groovy Class
+</code></pre><p>  ​    勾选添加 main 方法</p>
+</li>
+<li><p>在main 中打印hello world, 类如下：</p>
+</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> groovyTest</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> &#123;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> main(args) &#123;</span><br><span class="line">		System.out.print(<span class="string">"Hello World"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>运行</p>
+<pre><code>右击选择 run as &gt; Groovy Script 可以看到控制台打印了Hello World
+</code></pre></li>
+</ul>
+<hr>
+<h2 id="Groovy与Java"><a href="#Groovy与Java" class="headerlink" title="Groovy与Java"></a>Groovy与Java</h2><blockquote>
+<p>前面说到Groovy与java 很相似，有多相似可以从Hello World中看出，语法没有一点差别。但是Groovy也有它自己的特点。它可以基本兼容java的语法，也有自己的一套语法，写起来会比Java更加简洁方便。可以将上面的Hello World改成如下：</p>
+</blockquote>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> groovyTest</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> &#123;</span></span><br><span class="line">	<span class="keyword">static</span> main(args) &#123;</span><br><span class="line">		println (<span class="string">"Hello World"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出语句变得更简洁了，运行起来与之前结果一样。<br>甚至还能更简洁一点：</p>
+</blockquote>
+<pre><code>println (&quot;Hello World&quot;)
+</code></pre><blockquote>
+<p>只需要一句就可以实现一个Hello World</p>
+</blockquote>
+<hr>
+<p><strong>总结：</strong></p>
+<ul>
+<li>Groovy 属于脚本语言。脚本语言的一个特点就是能够在运行时进行解释。</li>
+<li>并且它支持松散的 Java 语法, 允许省略分号和修改符除非另行指定，Groovy 的所有内容都为 public。</li>
+<li>Groovy 允许定义简单脚本，同时无需定义正规的 class 对象。</li>
+<li>Groovy 语法还允许省略变量类型。</li>
+<li>并且Groovy也可以在JVM中直接运行，是Java 强有力的补充。</li>
+</ul>
+<hr>
+<h1 id="语法简介"><a href="#语法简介" class="headerlink" title="语法简介"></a>语法简介</h1><h2 id="定义方式"><a href="#定义方式" class="headerlink" title="定义方式"></a>定义方式</h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><pre><code>Groovy 中定义变量不需要类型，Groovy 会根据对象的值来判断它的类型，这点与JavaScript 有点类似。也可以统一用 def 来代替类型。
+例：def value = “Hello World”
+</code></pre><hr>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><pre><code>定义方法时也不需要加 public 。 在Groovy中默认的修饰符就是public 。可以看到上面的Hello World程序上 main 方法前也没有Public
+</code></pre><hr>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><pre><code>字符串的使用也比较简单。可以这样定义：def str = “hello”
+</code></pre><hr>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><pre><code>def var=&quot;hello &quot;+
+   &quot;world&quot;+
+   &quot;,groovy!&quot;
+   def repeat(val){
+        for(i = 0; i &lt; 5; i++){
+         println val
+        }
+   }
+   repeat(var)
+</code></pre><blockquote>
+<p>上面这段代码是一个简单的循环。其中我们可以把For循环改得更简洁一些：<br>for(i in 0..4){}<br>效果与原先相同</p>
+</blockquote>
+<hr>
+<h2 id="Groovy-集合"><a href="#Groovy-集合" class="headerlink" title="Groovy 集合"></a>Groovy 集合</h2><blockquote>
+<p>Groovy支持很多集合， 并且都是标准的Java对象，每个集合都是java.util.Collection 或 java.util.Map 的实例。<br>如： def coll = [“Groovy”, “Java”, “Ruby”]<br>这很像java中的数组，但实际上在Groovy中它一个Collection。向这个集合中添加元素有三种方式：</p>
+</blockquote>
+<pre><code>coll.add(&quot;Python&quot;)
+coll &lt;&lt; &quot;Smalltalk&quot;
+coll[5] = &quot;Perl&quot;
+</code></pre><ul>
+<li>*. 标记的使用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">coll = coll*.toUpperCase()</span><br><span class="line">println coll</span><br><span class="line">	</span><br><span class="line">//输出：[GROOVY, JAVA, RUBY, PYTHON, SMALLTALK, PERL]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 *.标记。会对数组中的每一个值都调用toUpperCase()。方便的实现了对数组中的字符串转成大写</p>
+</blockquote>
+<hr>
+<h2 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h2><blockquote>
+<p>Groovy中的映射写起来很简单，感觉有点像json。如下：</p>
+</blockquote>
+<pre><code>Def  hash = [name:&quot;Andy&quot;, &quot;VPN-#&quot;:45]
+</code></pre><blockquote>
+<p>Groovy 会自动处理成一个Map .上面定义中的键值不一定是String ，像上面的name 会自动转成一个String<br>Groovy 对 Map 的存取操作可以用 put 与 get<br>但更具Groovy特色的Map 使用方式时直接用 . 号，如：</p>
+</blockquote>
+<pre><code>Hash.name  //直接取得name 的值
+Hash.pwd = “123”  //直接向hash 中添加一个键对值
+</code></pre><hr>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><blockquote>
+<p>闭包是用{符号括起来的代码块，它可以被单独运行或调用，也可以被命名。类似‘匿名类’或内联函数的概念。<br>闭包中最常见的应用是对集合进行迭代，下面定义了3个闭包对map进行了迭代：</p>
+</blockquote>
+<pre><code>map.each({key,value-&gt;    //key,value两个参数用于接受每个元素的键/值
+println &quot;$key:$value&quot;})
+map.each{println it}     //it是一个关键字，代表map集合的每个元素
+map.each({ println it.getKey()+&quot;--&gt;&quot;+it.getValue()})
+</code></pre><blockquote>
+<p>除了用于迭代之外，闭包也可以单独定义：</p>
+</blockquote>
+<pre><code>def say={word-&gt;
+       println &quot;Hi,$word!&quot;
+   }
+</code></pre><p><em>调用：</em></p>
+<pre><code>say(&apos;groovy&apos;)
+   say.call(&apos;groovy&amp;grails&apos;)
+</code></pre><p><em>输出：</em></p>
+<pre><code>Hi,groovy!
+Hi,groovy&amp;grails!
+</code></pre><hr>
+<p>##类定义</p>
+<blockquote>
+<p>Groovy中的类与java中的类一样。但因为Groovy 的特色我们可以少写很多代码。</p>
+</blockquote>
+<ul>
+<li><p>不需要public 修饰符</p>
+<blockquote>
+<p>前面说到Groovy中默认的就是public </p>
+</blockquote>
+</li>
+<li><p>不需要变量类型说明</p>
+<blockquote>
+<p>前面也说到了</p>
+</blockquote>
+</li>
+<li><p>不需要getter() 与setter()方法    </p>
+<blockquote>
+<p>Groovy默认生成了标准的getter ，setter方法</p>
+</blockquote>
+</li>
+<li><p>不需要构造函数</p>
+<blockquote>
+<p>不在需要程序员声明任何构造函数，因为groovy自动提供了足够你使用的构造函数</p>
+</blockquote>
+</li>
+<li><p>不需要return </p>
+<blockquote>
+<p>在 Groovy 中可以省略 return 语句。Groovy 默认返回方法的最后一行。</p>
+</blockquote>
+</li>
+<li><p>不需要括号 ()</p>
+<blockquote>
+<p>Groovy中方法调用可以省略()号（构造函数除外）</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p>感觉Groovy 和java差不多，比java写起来轻松一些，对于java开发来说，顺手学一门Groovy是很容易的事，对工作中也有很大的作用。</p>
+<hr>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">HJW</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hjwjw.gitee.io/posts/250a2363/">https://hjwjw.gitee.io/posts/250a2363/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hjwjw.gitee.io">HJW</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/groovy/">groovy</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/posts/60b4a024/"><i class="fa fa-chevron-left">  </i><span>SAP系统与ABAP 学习笔记</span></a></div><div class="next-post pull-right"><a href="/posts/7aab7fa2/"><span>kendoGrid 自定义列命令</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2019 By HJW</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

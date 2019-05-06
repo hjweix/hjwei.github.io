@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Spring-loaded实现热部署-开发环境"><meta name="keywords" content="springload"><meta name="author" content="HJW"><meta name="copyright" content="HJW"><title>Spring-loaded实现热部署-开发环境 | HJW</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?3a101c3aa7d1cde834d9d6b197500902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-139524382-1', 'auto');
+ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#获取jar包"><span class="toc-number">1.</span> <span class="toc-text">获取jar包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IDE中部署"><span class="toc-number">2.</span> <span class="toc-text">IDE中部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#idea中"><span class="toc-number">2.1.</span> <span class="toc-text">idea中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eclipse中"><span class="toc-number">2.2.</span> <span class="toc-text">eclipse中</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">3.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/17232182?s=460&amp;v=4"></div><div class="author-info__name text-center">HJW</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/hjwjw">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">88</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">62</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">22</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">HJW</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">Spring-loaded实现热部署-开发环境</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-08-23</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Spring/">Spring</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><blockquote>
+<p>Oracle提供的JDK其实已经自带一定程度的热加载功能，但是如果你修改了类名，方法名，或者添加了新类，新方法的话。Tomcat都需要重新启动来使得刚才的更改生效。而JRebel和spring-loaded都能有效地解决这个问题。其中springloaded是开源软件，可以免费使用。其主页：<a href="https://github.com/spring-projects/spring-loaded" target="_blank" rel="noopener">https://github.com/spring-projects/spring-loaded</a></p>
+</blockquote>
+<h2 id="获取jar包"><a href="#获取jar包" class="headerlink" title="获取jar包"></a>获取jar包</h2><blockquote>
+<p>首先我们需要得到spring-loaded的jar包，上面的github链接中可以下载到。这里我用的是最新的springloaded-1.2.7.RELEASE.jar</p>
+<p>存放位置：D:\springloaded-1.2.7.RELEASE.jar</p>
+</blockquote>
+<h2 id="IDE中部署"><a href="#IDE中部署" class="headerlink" title="IDE中部署"></a>IDE中部署</h2><blockquote>
+<p>打开项目，在启动之前按以下进行配置</p>
+</blockquote>
+<h3 id="idea中"><a href="#idea中" class="headerlink" title="idea中"></a>idea中</h3><p>在启动Tomcat之前配置VM option。填写以下参数：<br>​<br>​    -javaagent:D:/springloaded-1.2.7.RELEASE.jar -noverify</p>
+<p>其中参数中Springloaded的路径按实际填写</p>
+<p><img src="http://i1.bvimg.com/608383/957314366cb70661s.png" alt="Markdown"></p>
+<p>配置完成后可以启动项目了</p>
+<hr>
+<h3 id="eclipse中"><a href="#eclipse中" class="headerlink" title="eclipse中"></a>eclipse中</h3><p>右击项目-&gt;Run as-&gt;Run configurations… 在tomcat启动项添加VM参数<br>​<br>​    -javaagent:D:/springloaded-1.2.7.RELEASE.jar -noverify</p>
+<p>其中参数中Springloaded的路径按实际填写</p>
+<p><img src="http://i4.bvimg.com/608383/3e354d4709cf930cs.png" alt="Markdown"></p>
+<p>配置完成后可以启动项目了</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
+<p>为了解Springloaded 适用于哪些更改，下面来作几个测试</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>我在上述启动的SSM项目中，在一个控制器里<strong>添加</strong>了以下方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试SpringLoaded</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span> </span><br><span class="line"><span class="function"><span class="keyword">public</span>  String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello Spring Loaded!"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>保存后通过浏览器访问失败，找不到/hello 这个路径。通过重启Tomcat后可以正常访问test方法</p>
+<hr>
+<blockquote>
+<p><strong>继续添加test2()方法，不使用注解</strong>，为了在浏览器中方便测试，通过test()方法来访问test2()方法。（经过上面重启Tomcat后test方法可以访问）</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试SpringLoaded</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span>  String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">this</span>.test2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span>  String <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="string">"Spring Loaded By Test2"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>浏览器输出</em></p>
+<p>​    “Spring Loaded By Test2”</p>
+<blockquote>
+<p>说明我们添加的第二个方法test2()没有经过重启服务器就可以访问了，热部署生效</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>我们继续 <strong>新建一个类</strong>，并在test()方法中去调用</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**新建类</span></span><br><span class="line"><span class="comment"> * Created by JiangWei.Huang</span></span><br><span class="line"><span class="comment"> * 2017/8/22 0022.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCtrl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/hello3"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"TestCtrl-test3"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**修改test方法调用新建的类TestCtr中的test3方法</span></span><br><span class="line"><span class="comment"> * 测试SpringLoaded</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span>  String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">   TestCtrl testCtrl = <span class="keyword">new</span> TestCtrl();</span><br><span class="line">   <span class="keyword">return</span> testCtrl.test3();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>浏览器输出</strong></p>
+<p>​    “TestCtrl-test3”</p>
+<blockquote>
+<p>说明我们新建的类，在不用重启的情况下也能够被调用到了，热部署生效</p>
+<p>但值得注意的是，我们新建的类中，在类上与方法上都写了Spring注解，但这里是也不生效的。@RestController这个注解没有生效，/hello3这个路径也是访问不了的。需要重启服务器才生效</p>
+<p>另外在Idea中修改后自动保存但不会自动重新编译，如果在Idea中修改后热部署没有生效，按ctrl+shift+f9重新编译。也可以设置Idea自动编译，设置如下图。</p>
+<p><img src="http://i4.bvimg.com/608383/aee36cfab3a965e7s.png" alt="Markdown"></p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>经过上面的测试我们可以得出一些结论。像官方所说，可以实现以下的热更新</p>
+<blockquote>
+<p>Spring Loaded allows you to add/modify/delete methods/fields/constructors. The annotations on types/methods/fields/constructors can also be modified and it is possible to add/remove/change values in enum types.</p>
+<p>Spring加载允许您添加/修改/删除/字段/方法构造函数。注释类型/方法/字段/构造函数，并且还可以在枚举类型中添加/删除/更改值。</p>
+</blockquote>
+<p>但是对于第三方像是Spring注解这些的修改，spring-loaded就无能为力了，必须求助于更加强大的，收费的JRebel了</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">HJW</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hjwjw.gitee.io/posts/66217f64/">https://hjwjw.gitee.io/posts/66217f64/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hjwjw.gitee.io">HJW</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/springload/">springload</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/posts/83be29ff/"><i class="fa fa-chevron-left">  </i><span>Linux部分常用命令 二</span></a></div><div class="next-post pull-right"><a href="/posts/edbdc617/"><span>error double free or corruption</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2019 By HJW</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

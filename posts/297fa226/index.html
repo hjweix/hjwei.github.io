@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Spring Boot Actuator监控端点"><meta name="keywords" content="Actuator,微服务监控端口"><meta name="author" content="HJW"><meta name="copyright" content="HJW"><title>Spring Boot Actuator监控端点 | HJW</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?3a101c3aa7d1cde834d9d6b197500902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-139524382-1', 'auto');
+ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#示例"><span class="toc-number">1.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置"><span class="toc-number">2.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#端点列表"><span class="toc-number">2.1.</span> <span class="toc-text">端点列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Actuator配置"><span class="toc-number">2.2.</span> <span class="toc-text">Actuator配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整合Spring-Security"><span class="toc-number">2.3.</span> <span class="toc-text">整合Spring Security</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/17232182?s=460&amp;v=4"></div><div class="author-info__name text-center">HJW</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/hjwjw">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">88</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">62</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">22</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">HJW</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">Spring Boot Actuator监控端点</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-07-03</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/微服务/">微服务</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>目录</p>
+<p>[TOC]</p>
+<hr>
+<p>#前言<br>微服务的这种架构虽然解决了单体应用的一些劣势，但它也面临一些挑战，比如对运维的要求更高了。一个微服务架构中可能有几十个上百个应用构成，要保证这些应用都正常运行，相互协调是比较麻烦的事情，因此我们需要一个组件来对这些应用进行监控和管理。<br><code>spring-boot-starter-actuator</code> 就是Spring Boot提供这个功能的模块。</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>运行环境：</p>
+<blockquote>
+<p>Spring Boot 2.0.3.RELEASE</p>
+</blockquote>
+<p><strong>1、引入依赖</strong><br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>2、启动应用</strong><br>重新启动应用访问 <code>http://localhost:8000/actuator/health</code> 会显示如下信息：<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	status: "UP"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Actuator监控管理默认的访问路径是在 <code>/actuator</code> 下。在测试Spring  Boot 1.5.9版本时是直接访问端点路径，不需要加 <code>/actuator</code> </p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>除了health端点外，Actuator还为我们提供了很多端点，有些可以直接访问，有些需要授权或通过配置才能访问。</p>
+<h2 id="端点列表"><a href="#端点列表" class="headerlink" title="端点列表"></a>端点列表</h2><table>
+<thead>
+<tr>
+<th style="text-align:right">端点</th>
+<th style="text-align:right">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right"><code>actuator</code></td>
+<td style="text-align:right">为其他端点提供基于超媒体的“发现页面”。要求Spring HATEOAS在类路径上</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>auditevents</code></td>
+<td style="text-align:right">公开当前应用程序的审核事件信息</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>autoconfig</code></td>
+<td style="text-align:right">显示自动配置报告，显示所有自动配置候选项以及它们“未被”应用的原因</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>beans</code></td>
+<td style="text-align:right">显示应用程序中所有Spring bean的完整列表</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>configprops</code></td>
+<td style="text-align:right">显示所有配置信息。</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>dump</code></td>
+<td style="text-align:right">打印线程栈</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>env</code></td>
+<td style="text-align:right">查看所以环境变量</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>health</code></td>
+<td style="text-align:right">显示应用程序运行状况信息</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>info</code></td>
+<td style="text-align:right">显示应用信息</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>loggers</code></td>
+<td style="text-align:right">显示和修改应用程序中记录器的配置</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>liquibase</code></td>
+<td style="text-align:right">显示已应用的任何Liquibase数据库迁移</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>metrics</code></td>
+<td style="text-align:right">显示当前应用程序的“指标”信息</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>mappings</code></td>
+<td style="text-align:right">显示所有@RequestMapping路径的整理列表</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>shutdown</code></td>
+<td style="text-align:right">允许应用程序正常关闭（默认情况下不启用）</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>trace</code></td>
+<td style="text-align:right">显示跟踪信息（默认情况下是最近的100个HTTP请求</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Actuator配置"><a href="#Actuator配置" class="headerlink" title="Actuator配置"></a>Actuator配置</h2><p><strong>自定义默认路径</strong><br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">management.endpoints.web.base-path</span> <span class="string">=</span> <span class="string">/application</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>修改后访问端点的默认路径不再是 <code>/actuator</code> 而是 <code>/application</code></p>
+</blockquote>
+<p><strong>自定义访问端口号</strong><br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">management.server.port=</span> <span class="number">8012</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>修改后我们查看Actuator需要修改成8012端口进行访问，如<code>http://localhost:8012/actuator/health</code></p>
+</blockquote>
+<p><strong>关闭验证</strong><br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">management.security.enabled=</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>默认情况下只开放了<code>health</code> 与 <code>info</code> 端口，关闭验证后，其它的也可以访问了，但不安全，最好添加 <code>security</code> 验证</p>
+</blockquote>
+<p><strong>控制端点是否开放</strong><br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">management.endpoints.web.exposure.include=</span> <span class="string">'info'</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>表示只暴露<code>info</code>端口，如添加其它端口使用 <code>,</code> 分隔，暴露所有端口使用 <code>*</code></p>
+</blockquote>
+<p><strong>端口属性配置</strong><br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">management.endpoint.端口名.属性=值</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>如 <code>management.endpoint.health.show-details= always</code> 表示显示 <code>health</code>端口的详细信息，大多数端口可以这样配置。</p>
+</blockquote>
+<h2 id="整合Spring-Security"><a href="#整合Spring-Security" class="headerlink" title="整合Spring Security"></a>整合Spring Security</h2><p>监控端点的很多信息住信比较隐私，不能让没有权限的人随意查看，因此可以添加Srping Security进行控制。<br><strong>添加依赖</strong><br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>配置Security</strong><br><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  security:</span></span><br><span class="line"><span class="attr">    user:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">user</span></span><br><span class="line"><span class="attr">      password:</span> <span class="number">123</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>配置security后，访问端口需要进行登陆验证。</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>另外还有其它的端口配置，还可以自定义端口等，这里不一一总结，以后需要时查查资料。贴上一个学习链接： <a href="http://blog.didispace.com/spring-boot-actuator-1/" target="_blank" rel="noopener">http://blog.didispace.com/spring-boot-actuator-1/</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">HJW</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hjwjw.gitee.io/posts/297fa226/">https://hjwjw.gitee.io/posts/297fa226/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hjwjw.gitee.io">HJW</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Actuator/">Actuator</a><a class="post-meta__tags" href="/tags/微服务监控端口/">微服务监控端口</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/posts/7d66ca0d/"><i class="fa fa-chevron-left">  </i><span>Spring Cloud Eureka实现服务注册与发现</span></a></div><div class="next-post pull-right"><a href="/posts/5a5916f3/"><span>微服务简单实例--电影购票</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2019 By HJW</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

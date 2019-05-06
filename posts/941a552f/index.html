@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="shell 脚本简介"><meta name="keywords" content="shell"><meta name="author" content="HJW"><meta name="copyright" content="HJW"><title>shell 脚本简介 | HJW</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?3a101c3aa7d1cde834d9d6b197500902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-139524382-1', 'auto');
+ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#bash"><span class="toc-number">1.</span> <span class="toc-text">bash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sh"><span class="toc-number">2.</span> <span class="toc-text">sh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ash"><span class="toc-number">3.</span> <span class="toc-text">ash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#csh"><span class="toc-number">4.</span> <span class="toc-text">csh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ksh"><span class="toc-number">5.</span> <span class="toc-text">ksh</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/17232182?s=460&amp;v=4"></div><div class="author-info__name text-center">HJW</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/hjwjw">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">88</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">62</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">22</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">HJW</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">shell 脚本简介</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Linux/">Linux</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><blockquote>
+<p>Unix/Linux上常见的Shell脚本解释器有bash、sh、csh、ksh等，习惯上把它们称作一种Shell。我们常说有多少种Shell，其实说的是Shell脚本解释器。</p>
+</blockquote>
+<h2 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h2><blockquote>
+<p>bash是Linux标准默认的shell，本教程也基于bash讲解。bash由Brian Fox和Chet Ramey共同完成，是BourneAgain Shell的缩写，内部命令一共有40个。</p>
+</blockquote>
+<hr>
+<p>Linux使用它作为默认的shell是因为它有诸如以下的特色：<br>可以使用类似DOS下面的doskey的功能，用方向键查阅和快速输入并修改命令。<br>自动通过查找匹配的方式给出以某字符串开头的命令。<br>包含了自身的帮助功能，你只要在提示符下面键入help就可以得到相关的帮助。</p>
+<hr>
+<h2 id="sh"><a href="#sh" class="headerlink" title="sh"></a>sh</h2><blockquote>
+<p>sh 由Steve Bourne开发，是Bourne Shell的缩写，sh 是Unix 标准默认的shell。</p>
+</blockquote>
+<h2 id="ash"><a href="#ash" class="headerlink" title="ash"></a>ash</h2><blockquote>
+<p>ash shell 是由Kenneth Almquist编写的，Linux中占用系统资源最少的一个小shell，它只包含24个内部命令，因而使用起来很不方便。</p>
+</blockquote>
+<h2 id="csh"><a href="#csh" class="headerlink" title="csh"></a>csh</h2><blockquote>
+<p>csh 是Linux比较大的内核，它由以William Joy为代表的共计47位作者编成，共有52个内部命令。该shell其实是指向/bin/tcsh这样的一个shell，也就是说，csh其实就是tcsh。</p>
+</blockquote>
+<h2 id="ksh"><a href="#ksh" class="headerlink" title="ksh"></a>ksh</h2><blockquote>
+<p>ksh 是Korn shell的缩写，由Eric Gisin编写，共有42条内部命令。该shell最大的优点是几乎和商业发行版的ksh完全兼容，这样就可以在不用花钱购买商业版本的情况下尝试商业版本的性能了。</p>
+</blockquote>
+<blockquote>
+<p>注意：bash是 Bourne Again Shell 的缩写，是linux标准的默认shell ，它基于Bourne shell，吸收了C shell和Korn shell的一些特性。bash完全兼容sh，也就是说，用sh写的脚本可以不加修改的在bash中执行。</p>
+</blockquote>
+<blockquote>
+<p>因为Shell似乎是各UNIX系统之间通用的功能，并且经过了POSIX的标准化。因此，Shell脚本只要“用心写”一次，即可应用到很多系统上。因此，之所以要使用Shell脚本是基于：</p>
+<ul>
+<li>简单性：Shell是一个高级语言；通过它，你可以简洁地表达复杂的操作。</li>
+<li>可移植性：使用POSIX所定义的功能，可以做到脚本无须修改就可在不同的系统上执行。</li>
+<li>开发容易：可以在短时间内完成一个功能强大又妤用的脚本。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>但是，考虑到Shell脚本的命令限制和效率问题，下列情况一般不使用Shell：</p>
+</blockquote>
+<pre><code>资源密集型的任务，尤其在需要考虑效率时（比如，排序，hash等等）。
+需要处理大任务的数学操作，尤其是浮点运算，精确运算，或者复杂的算术运算（这种情况一般使用C++或FORTRAN 来处理）。
+有跨平台（操作系统）移植需求（一般使用C 或Java）。
+复杂的应用，在必须使用结构化编程的时候（需要变量的类型检查，函数原型，等等）。
+对于影响系统全局性的关键任务应用。
+对于安全有很高要求的任务，比如你需要一个健壮的系统来防止入侵、破解、恶意破坏等等。
+项目由连串的依赖的各个部分组成。
+需要大规模的文件操作。
+需要多维数组的支持。
+需要数据结构的支持，比如链表或数等数据结构。
+需要产生或操作图形化界面 GUI。
+需要直接操作系统硬件。
+需要 I/O 或socket 接口。
+需要使用库或者遗留下来的老代码的接口。
+私人的、闭源的应用（shell 脚本把代码就放在文本文件中，全世界都能看到）。
+</code></pre></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">HJW</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hjwjw.gitee.io/posts/941a552f/">https://hjwjw.gitee.io/posts/941a552f/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hjwjw.gitee.io">HJW</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/shell/">shell</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/posts/82c8cab7/"><i class="fa fa-chevron-left">  </i><span>shell基础</span></a></div><div class="next-post pull-right"><a href="/posts/83be29ff/"><span>Linux部分常用命令 二</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2019 By HJW</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

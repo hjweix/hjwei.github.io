@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="一 JMS概述"><meta name="keywords" content="ActiveMQ"><meta name="author" content="HJW"><meta name="copyright" content="HJW"><title>一 JMS概述 | HJW</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?3a101c3aa7d1cde834d9d6b197500902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-139524382-1', 'auto');
+ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、JMS概念"><span class="toc-number">1.</span> <span class="toc-text">一、JMS概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、消息服务器"><span class="toc-number">2.</span> <span class="toc-text">二、消息服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、消息模型"><span class="toc-number">3.</span> <span class="toc-text">三、消息模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Point-to-Point-P2P-–-点对点模式"><span class="toc-number">3.1.</span> <span class="toc-text">1、Point-to-Point(P2P) – 点对点模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Publish-Subscribe-Pub-Sub-–-发布订阅模型"><span class="toc-number">3.2.</span> <span class="toc-text">2、Publish/Subscribe(Pub/Sub)  – 发布订阅模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、消息的消费"><span class="toc-number">4.</span> <span class="toc-text">三、消息的消费</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、JMS编程模型"><span class="toc-number">5.</span> <span class="toc-text">四、JMS编程模型</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/17232182?s=460&amp;v=4"></div><div class="author-info__name text-center">HJW</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/hjwjw">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">88</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">62</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">22</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">HJW</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">一 JMS概述</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-04-12</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/MQ/">MQ</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>[TOC]</p>
+<h1 id="一、JMS概念"><a href="#一、JMS概念" class="headerlink" title="一、JMS概念"></a>一、JMS概念</h1><blockquote>
+<p>摘要：The Java Message Service (JMS) API is a messaging standard that allows application components based on the Java Platform Enterprise Edition (Java EE) to create, send, receive, and read messages. It enables distributed communication that is loosely coupled, reliable, and asynchronous.</p>
+</blockquote>
+<blockquote>
+<p>JMS（JAVA Message Service,java消息服务）API是一个消息服务的标准或者说是规范，允许应用程序组件基于JavaEE平台创建、发送、接收和读取消息。它使分布式通信耦合度更低，消息服务更加可靠以及异步性。jms是java的消息服务，JMS客户端之间可以通过JMS服务进行异步的消息传输</p>
+</blockquote>
+<blockquote>
+<p>消息包括：消息头，消息扩展属性和消息休，其结构看起来与SOAP非常相似，但一般情况下，SOAP主要关注远程服务调用，而消息则专注于信息的交换。</p>
+</blockquote>
+<blockquote>
+<p>消息分为：消息生产者，消息服务器和消息消费者。生产者与消费者之间是透明的，生产者在产生消息后，把消息发送到消息服务器，再由消息服务器发给消费者，因此它们构成了JMS的3点结构;<br>消息服务器再给消费者时，有2种模式:点到点(point to point )模式和发布/订阅(pbulish/subscribe) 模式,两种模式下面会详细介绍;</p>
+</blockquote>
+<h1 id="二、消息服务器"><a href="#二、消息服务器" class="headerlink" title="二、消息服务器"></a>二、消息服务器</h1><blockquote>
+<p>消息服务器有很多:ActiveMQ,Jboss MQ,Open MQ,RabbitMQ ,ZeroMQ等等。<br>本文介绍的是开源的java实现的Apache ActiveMQ,后面我们会写到如何应用它与jms结合。</p>
+</blockquote>
+<p>看到一个对消息服务器作用的解释：</p>
+<blockquote>
+<p>消息队列的主要作用不是通讯，主要是用于解除子系统间的耦合，所以异构系统间的通讯实际并不是ActiveMQ发挥作用的场景，那反而是RPC发挥作用的时候。<br>消息队列更适合于需要更大流量和并发的大型系统场景，可以将消息队列视为一个可靠的通道，主交易过程在处理时，遇到需时较多同时又已经确定了条件的处理就丢到消息队列里进行后续处理，这样可以将主交易过程划分为一个一个可以异步处理的更小的处理过程，减少了主交易流程的处理时间，可以提供更快的响应速度和并发速度。例如，象淘宝这样的处理逻辑非常多的系统，在处理付款时，就可以将通知买家和卖家、记日志甚至记帐流程都放到消息队列里处理，整个主流程能够快速处理完成，继续处理下一个买家的请求。</p>
+</blockquote>
+<p>应用场景:<br><img src="https://wx4.sinaimg.cn/mw690/005RGBbLly1fwv4mafi9lj30k00dnt9n.jpg" alt="应用场景"></p>
+<h1 id="三、消息模型"><a href="#三、消息模型" class="headerlink" title="三、消息模型"></a>三、消息模型</h1><h2 id="1、Point-to-Point-P2P-–-点对点模式"><a href="#1、Point-to-Point-P2P-–-点对点模式" class="headerlink" title="1、Point-to-Point(P2P) – 点对点模式"></a>1、Point-to-Point(P2P) – 点对点模式</h2><p><img src="https://wx4.sinaimg.cn/mw690/005RGBbLly1fwv4ma1cryj30dj0450tc.jpg" alt="这里写图片描述"></p>
+<blockquote>
+<p>每条消息都从消息生产者传递到单个消息使用者。生产者将消息传递给队列，稍后将其传递给为队列注册的其中一个消费者。任何数量的生产者和消费者都可以与同一个队列进行交互，但是每个消息都被保证传递给（并且被成功消费）一个消费者，而不会再消费。如果没有消费者注册队列，它将保存它收到的消息，并最终在消费者注册时传递消息。</p>
+</blockquote>
+<h2 id="2、Publish-Subscribe-Pub-Sub-–-发布订阅模型"><a href="#2、Publish-Subscribe-Pub-Sub-–-发布订阅模型" class="headerlink" title="2、Publish/Subscribe(Pub/Sub)  – 发布订阅模型"></a>2、Publish/Subscribe(Pub/Sub)  – 发布订阅模型</h2><p><img src="https://wx4.sinaimg.cn/mw690/005RGBbLly1fwv4macqaej30c606ldgm.jpg" alt="这里写图片描述"></p>
+<blockquote>
+<p>单个消息可以从生产者被传递到任何数量的消费者。生产者将消息发布到一个主题，然后将其发送给订阅了该主题的所有活动消费者。任何数量的生产者都可以将消息发布到给定主题，并且每条消息都可以传递给任意数量的订阅消费者。该模型还支持持久订阅的概念，在消息发布时，注册了主题的消费者不需要处于活动状态; 当消费者随后变得活跃时，它将收到消息。如果没有活动使用者注册主题，则该主题不会持有它收到的消息，除非它具有持久订阅的不活动消费者。</p>
+</blockquote>
+<h1 id="三、消息的消费"><a href="#三、消息的消费" class="headerlink" title="三、消息的消费"></a>三、消息的消费</h1><p>在JMS中，消息的产生和消息是异步的。对于消费来说，JMS的消息者可以通过两种方式来消费消息。<br>○ 同步 </p>
+<blockquote>
+<p>订阅者或接收者调用receive方法来接收消息，receive方法在能够接收到消息之前（或超时之前）将一直阻塞 </p>
+</blockquote>
+<p>○ 异步 </p>
+<blockquote>
+<p>订阅者或接收者可以注册为一个消息监听器。当消息到达之后，系统自动调用监听器的onMessage方法。</p>
+</blockquote>
+<h1 id="四、JMS编程模型"><a href="#四、JMS编程模型" class="headerlink" title="四、JMS编程模型"></a>四、JMS编程模型</h1><p>1、 ConnectionFactory</p>
+<blockquote>
+<p>创建Connection对象的工厂，针对两种不同的jms消息模型，分别有QueueConnectionFactory和TopicConnectionFactory两种。可以通过JNDI来查找ConnectionFactory对象。</p>
+</blockquote>
+<p>2、Destination</p>
+<blockquote>
+<p>Destination的意思是消息生产者的消息发送目标或者说消息消费者的消息来源。对于消息生产者来说，它的Destination是某个队列（Queue）或某个主题（Topic）;对于消息消费者来说，它的Destination也是某个队列或主题（即消息来源）。</p>
+</blockquote>
+<blockquote>
+<p>所以，Destination实际上就是两种类型的对象：Queue、Topic可以通过JNDI来查找Destination。</p>
+</blockquote>
+<p>3、Connection</p>
+<blockquote>
+<p>Connection表示在客户端和JMS系统之间建立的链接（对TCP/IP socket的包装）。Connection可以产生一个或多个Session。跟ConnectionFactory一样，Connection也有两种类型：QueueConnection和TopicConnection。</p>
+</blockquote>
+<p>4、Session</p>
+<blockquote>
+<p>Session是我们操作消息的接口。可以通过session创建生产者、消费者、消息等。Session提供了事务的功能。当我们需要使用session发送/接收多个消息时，可以将这些发送/接收动作放到一个事务中。同样，也分QueueSession和TopicSession。</p>
+</blockquote>
+<p>5、消息的生产者</p>
+<blockquote>
+<p>消息生产者由Session创建，并用于将消息发送到Destination。同样，消息生产者分两种类型：QueueSender和TopicPublisher。可以调用消息生产者的方法（send或publish方法）发送消息。</p>
+</blockquote>
+<p>6、消息消费者</p>
+<blockquote>
+<p>消息消费者由Session创建，用于接收被发送到Destination的消息。两种类型：QueueReceiver和TopicSubscriber。可分别通过session的createReceiver(Queue)或createSubscriber(Topic)来创建。当然，也可以session的creatDurableSubscriber方法来创建持久化的订阅者。</p>
+</blockquote>
+<p>7、MessageListener</p>
+<blockquote>
+<p>消息监听器。如果注册了消息监听器，一旦消息到达，将自动调用监听器的onMessage方法。EJB中的MDB（Message-Driven Bean）就是一种MessageListener。</p>
+</blockquote>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">HJW</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hjwjw.gitee.io/posts/b7f40b7d/">https://hjwjw.gitee.io/posts/b7f40b7d/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hjwjw.gitee.io">HJW</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ActiveMQ/">ActiveMQ</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/posts/762f8ad8/"><i class="fa fa-chevron-left">  </i><span>二 JMS 点对点模型 -- ActiveMQ简单实现</span></a></div><div class="next-post pull-right"><a href="/posts/c711627f/"><span>IDEA中VCS报错</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2019 By HJW</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
