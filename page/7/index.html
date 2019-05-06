@@ -19,72 +19,10 @@ ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = {
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/17232182?s=460&amp;v=4"></div><div class="author-info__name text-center">HJW</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/hjwjw">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">88</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">62</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">22</span></a></div></div></div><nav class="no-bg" id="nav"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">HJW</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="site-info"><div id="site-title">HJW</div><div id="site-sub-title"></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/posts/73cfe2ae/">shell中的重定向</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><blockquote>
-<p>这可能是命令行最酷的特性。它叫做 I/O 重定向。”I/O”代表输入/输出， 通过这个工具，你可以重定向命令的输入输出，命令的输入来自文件，而输出也存到文件。 也可以把多个命令连接起来组成一个强大的命令管道。为了展示这个工具，我们将叙述 以下命令：</p>
-</blockquote>
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/17232182?s=460&amp;v=4"></div><div class="author-info__name text-center">HJW</div><div class="author-info__description text-center"></div><div class="follow-button"><a href="https://github.com/hjwjw">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">86</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">60</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">21</span></a></div></div></div><nav class="no-bg" id="nav"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">HJW</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="site-info"><div id="site-title">HJW</div><div id="site-sub-title"></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/posts/621227ea/">shell归档与备份</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><p>将会介绍以下命令：</p>
 <ul>
-<li><p>cat － 连接文件</p>
-</li>
-<li><p>sort － 排序文本行</p>
-</li>
-<li><p>uniq － 报道或省略重复行</p>
-</li>
-<li><p>grep － 打印匹配行</p>
-</li>
-<li><p>wc － 打印文件中换行符，字，和字节个数</p>
-</li>
-<li><p>head － 输出文件第一部分</p>
-</li>
-<li><p>tail - 输出文件最后一部分</p>
-</li>
-<li><p>tee - 从标准输入读取数据，并同时写到标准输出和文件</p>
-</li>
-</ul>
-<h1 id="标准输入、输出和错误"><a href="#标准输入、输出和错误" class="headerlink" title="标准输入、输出和错误"></a>标准输入、输出和错误</h1><h3 id="重定向标准输出"><a href="#重定向标准输出" class="headerlink" title="重定向标准输出"></a>重定向标准输出</h3><pre><code>[hjw@localhost ~]$ ls -l /home/hjw/ &gt;hjw.txt
-</code></pre><p>通过 &gt; 号我们可以把ls -l 生产的输出内容写入到hjw.txt文件中，由文件代替屏幕。如果hjw.txt不存在会自动创建这个文件。并且写入到文件都是从开头重写。如果/home/hjw/ 是一个不存在的目录，屏幕上会出现错误信息，并且hjw.txt文件内容会被清空(如果有内容的话)。</p>
-<pre><code>[hjw@localhost ~]$ &gt; hjw.txt
-</code></pre><p>因此如果我们使用上面的命令，可以很方便的清空一个文件的内容。</p>
-<p>如果我们想在文件末尾添加内容而不是开头重写，我们可以使用 &gt;&gt;</p>
-<pre><code>[hjw@localhost ~]$ ls -l /usr/local &gt;&gt;hjw.txt
-</code></pre><p>这样使用后，输出内容会添加在hjw.txt末尾，而不是清空文件内容</p>
-<h3 id="重定向标准错误"><a href="#重定向标准错误" class="headerlink" title="重定向标准错误"></a>重定向标准错误</h3><pre><code>[hjw@localhost ~]$ ls -l /home/hj/ 2&gt;hjw_error.txt
-</code></pre><p>这里的目录是一个不存在的目录，因此会出现错误，我们使用 2&gt; 可以把错误信息写入到 hjw_error.txt中，而不是直接显示到屏幕上</p>
-<h3 id="重定向标准输出与错误到同一个文件"><a href="#重定向标准输出与错误到同一个文件" class="headerlink" title="重定向标准输出与错误到同一个文件"></a>重定向标准输出与错误到同一个文件</h3><pre><code>[hjw@localhost ~]$ ls -l /home/hj/ &gt;hjw.txt 2&gt;&amp;1
-</code></pre><p>这条命令表示标准输出写入到hjw.txt文件中，标准错误信息写入上一个描述符中，也就是hjw.txt中。所以他们的顺序也不能反过来</p>
-<pre><code>[hjw@localhost ~]$ ls -l /home/hj/ &amp;&gt;hjw.txt 
-</code></pre><p>这条命令与上一条相同，&amp;&gt; 是bash新版本中提供的</p>
-<h3 id="处理不需要的输出"><a href="#处理不需要的输出" class="headerlink" title="处理不需要的输出"></a>处理不需要的输出</h3><pre><code>[hjw@localhost ~]$ ll /home/hj 2&gt; /dev/null
-</code></pre><p>有时我们不想要一个命令的输出结果，我们可以把它输出到 /dev/null 这个特殊的文件中。这个文件是系统设备，叫作 位存储桶，它可以接受输入，并不对输入作任何操作。我们可以用它来隐藏错误信息</p>
-<h3 id="重定向标准输入"><a href="#重定向标准输入" class="headerlink" title="重定向标准输入"></a>重定向标准输入</h3><pre><code>[hjw@localhost ~]$ cat hjw.txt
-</code></pre><p>cat 命令可以用来读取一个或多个文件，然后复制它们到标准输出。这条命令会在屏幕上输出hjw.txt的内容。</p>
-<pre><code>[hjw@localhost ~]$ cat 
-</code></pre><p>只输入一个cat命令，我们可以回车直接输入内容。Ctrl + D结束输入。会发现我们之前输入的内容重复出现在屏幕上，因为cat 接收了标准输入并把内容复制到标准输出了</p>
-<pre><code>[hjw@localhost ~]$ cat &gt;hjw2.txt
-</code></pre><p>我们可以使用Cat来创建一个文件。输入上述命令后回车输入文件内容，Ctrl+ D 结束输入后，我们浏览hjw2.txt ，之前在屏幕中输入的内容已经写入到了文件中。</p>
-<pre><code>[hjw@localhost ~]$ cat &lt;hjw2.txt
-</code></pre><p>同样的，我们可以将标准输入源改成文件。回车后输出文件内容。</p>
-<h3 id="管道线"><a href="#管道线" class="headerlink" title="管道线"></a>管道线</h3><pre><code>[hjw@localhost ~]$ ls -l /usr/bin | less
-</code></pre><p>使用管道操作符”|”（竖杠），一个命令的标准输出可以通过管道送至另一个命令的标准输入<br>这个表示将ls输出的内容使用less来浏览。<br>​    </p>
-<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><pre><code>[hjw@localhost ~]$ ls bin redis-3.2.9/ | sort | less
-</code></pre><p>把目录/bin 和/redis-3.2.9 中 的可执行程序都联合在一起，再把它们排序，然后浏览执行结果</p>
-<h3 id="uniq-报道或忽略重复行"><a href="#uniq-报道或忽略重复行" class="headerlink" title="uniq - 报道或忽略重复行"></a>uniq - 报道或忽略重复行</h3><pre><code>[hjw@localhost ~]$ ls bin redis-3.2.9/ | sort | uniq | less
-</code></pre><h3 id="wc-－-打印行数、字数和字节数"><a href="#wc-－-打印行数、字数和字节数" class="headerlink" title="wc － 打印行数、字数和字节数"></a>wc － 打印行数、字数和字节数</h3><pre><code>[hjw@localhost ~]$ ls bin redis-3.2.9/ | sort | uniq | wc -l
-</code></pre><h3 id="grep-－-打印匹配行"><a href="#grep-－-打印匹配行" class="headerlink" title="grep － 打印匹配行"></a>grep － 打印匹配行</h3><p>grep 是个很强大的程序，用来找到文件中的匹配文本。这样使用 grep 命令：<br>​    [hjw@localhost ~]$ ls bin redis-3.2.9/ | grep conf</p>
-<p>返回ls的结果中包含 conf的记录<br>​    grep -i     忽略大小写<br>​    grep -v     只打印不匹配的行</p>
-<h3 id="head-tail-－-打印文件开头部分-结尾部分"><a href="#head-tail-－-打印文件开头部分-结尾部分" class="headerlink" title="head / tail － 打印文件开头部分/结尾部分"></a>head / tail － 打印文件开头部分/结尾部分</h3><p>有时我们不需要文件的所有内容，只需要开头或结尾的几行<br>​<br>​    [hjw@localhost ~]$ ls bin redis-3.2.9/ | tail</p>
-<p>查看ls结果的结尾十行。head 与 tail 默认都是十行。可以自己指定显示几行<br>​<br>​    [hjw@localhost ~]$ ls bin redis-3.2.9/ | head -n 5<br>显示开头的前五行</p>
-<pre><code>[hjw@localhost ~]$ head -n 2 hjw.txt
-</code></pre><p>显示hjw.txt文件的前2行</p>
-<pre><code>[hjw@localhost ~]$ tail -f hjw.txt
-</code></pre><p>tail -f 可以监测文件的变动。执行命令后，如果hjw.txt有新内容添加时，会实时的显示在屏幕中<br>​    </p>
-<h3 id="tee-－-从-Stdin-读取数据，并同时输出到-Stdout-和文件"><a href="#tee-－-从-Stdin-读取数据，并同时输出到-Stdout-和文件" class="headerlink" title="tee － 从 Stdin 读取数据，并同时输出到 Stdout 和文件"></a>tee － 从 Stdin 读取数据，并同时输出到 Stdout 和文件</h3><pre><code>[hjw@localhost ~]$ ls redis-3.2.9/ | tee ls.txt | grep conf
-</code></pre><p>tee 程序从标准输入读入数据，并且同时复制数据 到标准输出（允许数据继续随着管道线流动）和一个或多个文件。这里我们在过虑之前把 redis-3.2.9目录内容捕捉到ls.txt中</p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/621227ea/">shell归档与备份</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><p>将会介绍以下命令：</p>
-<ul>
-<li><p>gzip – 压缩或者展开文件</p>
-</li>
-<li><p>bzip2 – 块排序文件压缩器</p>
-</li>
+<li>gzip – 压缩或者展开文件</li>
+<li>bzip2 – 块排序文件压缩器</li>
 </ul>
 <p>归档程序：</p>
 <ul>
@@ -96,372 +34,69 @@ ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = {
 <p>还有文件同步程序：</p>
 <ul>
 <li>rsync – 同步远端文件和目录</li>
-</ul>
-<h2 id="压缩文件"><a href="#压缩文件" class="headerlink" title="压缩文件"></a>压缩文件</h2><pre><code>[hjw@localhost ~]$ less hjw.txt
-[hjw@localhost ~]$ ls -l hjw.txt
--rw-rw-r--. 1 hjw hjw 1054 9月  25 19:45 hjw.txt
-[hjw@localhost ~]$ gzip hjw.txt
-[hjw@localhost ~]$ ls
-bin  bin.txt  hello.txt  hjw2.txt  hjw_error.txt  hjw.txt.gz  ls.txt  redis-3.2.9
-[hjw@localhost ~]$ ls -l hjw.txt*
--rw-rw-r--. 1 hjw hjw 349 9月  25 19:45 hjw.txt.gz
-[hjw@localhost ~]$ gunzip hjw.txt.gz 
-[hjw@localhost ~]$ ls
-bin  bin.txt  hello.txt  hjw2.txt  hjw_error.txt  hjw.txt  ls.txt  redis-3.2.9
-[hjw@localhost ~]$ less hjw.txt 
-[hjw@localhost ~]$ ls -l hjw.txt 
--rw-rw-r--. 1 hjw hjw 1054 9月  25 19:45 hjw.txt
-</code></pre><p>hjw.txt文件中是一些目录列表，我们可以看到刚开始它的大小为1054，压缩后原文件被压缩文件替换了，大小也变小了。再解压原文件替换压缩文件，大小恢复原来的大小，文件内容不会变。并且他们的权限与时间戳也不会变化。</p>
-<h3 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h3><p>还有一些可选参数：</p>
-<pre><code>-c    把输出写入到标准输出，并且保留原始文件。也有可能用--stdout 和--to-stdout 选项来指定。
--d    解压缩。正如 gunzip 命令一样。也可以用--decompress 或者--uncompress 选项来指定.
--f    强制压缩，即使原始文件的压缩文件已经存在了，也要执行。也可以用--force 选项来指定。
--h    显示用法信息。也可用--help 选项来指定。
--l    列出每个被压缩文件的压缩数据。也可用--list 选项。
--r    若命令的一个或多个参数是目录，则递归地压缩目录中的文件。也可用--recursive 选项来指定。
--t    测试压缩文件的完整性。也可用--test 选项来指定。
--v    显示压缩过程中的信息。也可用--verbose 选项来指定。
--number    设置压缩指数。number 是一个在1（最快，最小压缩）到9（最慢，最大压缩）之间的整数。 数值1和9也可以各自用--fast 和--best 选项来表示。默认值是整数6。
-</code></pre><p>可以与管道配合来使用</p>
-<pre><code>[hjw@localhost ~]$ ls -l | gzip &gt; hjw.txt.gz
-</code></pre><p>这里将ls的标准输出内容压缩到了hjw.txt.gz文件中<br>如果我们只想查看压缩文件的内容而不想解压它可以使用命令：</p>
-<pre><code>[hjw@localhost ~]$ gunzip -c hjw.txt.gz | less
-或者是
-[hjw@localhost ~]$ zcat hjw.txt.gz  | less
-</code></pre><h2 id="归档文件"><a href="#归档文件" class="headerlink" title="归档文件"></a>归档文件</h2><h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><blockquote>
-<p>我们经常看到扩展名为 .tar 或者 .tgz 的文件，它们各自表示“普通” 的 tar 包和被 gzip 程序压缩过的 tar 包。一个 tar 包可以由一组独立的文件，一个或者多个目录，或者 两者混合体组成。<br>语法：</p>
-</blockquote>
-<pre><code>tar mode[options] pathname...
-mode是它的模式，首先需要指定模式再加选项
-</code></pre><h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><pre><code>c    为文件和／或目录列表创建归档文件。
-x    抽取归档文件。
-r    追加具体的路径到归档文件的末尾。
-t    列出归档文件的内容。
-</code></pre><h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><p>-A或–catenate：新增文件到以存在的备份文件；<br>-B：设置区块大小；<br>-c或–create：建立新的备份文件；<br>-C 目录：这个选项用在解压缩，若要在特定目录解压缩，可以使用这个选项。<br>-d：记录文件的差别；<br>-x或–extract或–get：从备份文件中还原文件；<br>-t或–list：列出备份文件的内容；<br>-z或–gzip或–ungzip：通过gzip指令处理备份文件；<br>-Z或–compress或–uncompress：通过compress指令处理备份文件；<br>-f备份文件或–file=备份文件：指定备份文件；<br>-v或–verbose：显示指令执行过程；<br>-r：添加文件到已经压缩的文件；<br>-u：添加改变了和现有的文件到已经存在的压缩文件；<br>-j：支持bzip2解压文件；<br>-v：显示操作过程；<br>-l：文件系统边界设置；<br>-k：保留原有文件不覆盖；<br>-m：保留文件不被覆盖；<br>-w：确认压缩文件的正确性；<br>-p或–same-permissions：用原来的文件权限还原文件；<br>-P或–absolute-names：文件名使用绝对名称，不移除文件名称前的“/”号；<br>-N 日期格式 或 –newer=日期时间：只将较指定日期更新的文件保存到备份文件里；<br>–exclude=范本样式：排除符合范本样式的文件。</p>
-<p>解压缩 </p>
-<pre><code>tar -xvf /tmp/mdm_installer/apache-tomcat-9.0.0.M26.tar.gz -C /usr/local/
-</code></pre><p>打包与压缩</p>
-<pre><code>仅打包，不压缩
-[hjw@localhost ~]$ tar -cvf hjw.tar hjw2.txt hjw_error.txt  
-
-打包后，以gzip压缩
-[hjw@localhost ~]$ tar -zcvf hjw.tar.gz hjw2.txt hjw_error.txt  
-
-查看打包压缩的内容
-[hjw@localhost ~]$ tar -ztvf hjw.tar.gz  
-
-从打包压缩的文件中解压单个文件出来
-[hjw@localhost ~]$ tar -zxvf hjw.tar.gz hjw2.txt   
-</code></pre><p>##同步文件和目录</p>
-<blockquote>
-<p>rsync 程序能同步本地与远端的目录，通过使用 rsync 远端更新协议，此协议 允许 rsync 快速地检测两个目录的差异，执行最小量的复制来达到目录间的同步。比起其它种类的复制程序， 这就使 rsync 命令非常快速和高效。<br>语法：</p>
-</blockquote>
-<pre><code>rsync 选项 源 目标
-</code></pre><p>其中源 与 目标是为下列三种选项之一：</p>
-<ul>
-<li>一个本地文件或目录</li>
-<li>一个远端文件或目录，以[user@]host:path 的形式存在</li>
-<li>一个远端 rsync 服务器，由 rsync://[user@]host[:port]/path 指定</li>
-</ul>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/9b2cc92/">shell进程管理</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><h2 id="进程是怎样工作的"><a href="#进程是怎样工作的" class="headerlink" title="进程是怎样工作的"></a>进程是怎样工作的</h2><blockquote>
+</ul></div><a class="more" href="/posts/621227ea/#more">阅读更多</a><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/9b2cc92/">shell进程管理</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><h2 id="进程是怎样工作的"><a href="#进程是怎样工作的" class="headerlink" title="进程是怎样工作的"></a>进程是怎样工作的</h2><blockquote>
 <p>当系统启动的时候，内核先把一些它自己的程序初始化为进程，然后运行一个叫做 init 的程序。init， 依次地，再运行一系列的称为 init 脚本的 shell 脚本（位于/etc），它们可以启动所有的系统服务。 其中许多系统服务以守护（daemon）程序的形式实现，守护程序仅在后台运行，没有任何用户接口。 这样，即使我们没有登录系统，至少系统也在忙于执行一些例行事务</p>
-</blockquote>
-<p>将介绍下面这些命令：</p>
-<ul>
-<li><p>ps – 报告当前进程快照</p>
-</li>
-<li><p>top – 显示任务</p>
-</li>
-<li><p>jobs – 列出活跃的任务</p>
-</li>
-<li><p>bg – 把一个任务放到后台执行</p>
-</li>
-<li><p>fg – 把一个任务放到前台执行</p>
-</li>
-<li><p>kill – 给一个进程发送信号</p>
-</li>
-<li><p>killall – 杀死指定名字的进程</p>
-</li>
-<li><p>shutdown – 关机或重启系统</p>
-</li>
-</ul>
-<h2 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h2><pre><code>[hjw@localhost ~]$ ps
-</code></pre><p>单独ps命令会列出与当前终端会话相关的进程情况 </p>
-<pre><code>[hjw@localhost ~]$ ps aux
-</code></pre><p>这个选项组合，能够显示属于每个用户的进程信息</p>
-<pre><code>[hjw@localhost ~]$ top
-</code></pre><p>top可以动态的查看进程</p>
-<pre><code>[hjw@localhost ~]$ kill pid
-</code></pre><p>杀死一个进程 (pid)</p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/ec271926/">shell 展开</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><h2 id="字符展开"><a href="#字符展开" class="headerlink" title="字符展开"></a>字符展开</h2><pre><code>[hjw@localhost bin]$ echo *
-</code></pre><p>输出~目录下的文件</p>
-<h2 id="路径名展开"><a href="#路径名展开" class="headerlink" title="路径名展开"></a>路径名展开</h2><pre><code>[hjw@localhost redis-3.2.9]$ echo r*
-</code></pre><p>命令会列出redis-3.2.9目录下的所有r开头的文件</p>
-<h2 id="算术表达式展开"><a href="#算术表达式展开" class="headerlink" title="算术表达式展开"></a>算术表达式展开</h2><pre><code>[hjw@localhost ~]$ echo $((2+2))
-</code></pre><p>可以直接进行算术运算</p>
-<h2 id="花括号展开"><a href="#花括号展开" class="headerlink" title="花括号展开"></a>花括号展开</h2><p>这个命令会根据花括号中的值来创建多个字符串</p>
-<pre><code>[hjw@localhost ~]$ echo Front-{A,B，C}-Back
-输出结果:
-Front-A-Back Front-B，C-Back
-</code></pre><p>这个命令使用了 .. 符号<br>​    [hjw@localhost ~]$ echo Number_{1..5}<br>​    输出结果：<br>​    Number_1 Number_2 Number_3 Number_4 Number_5<br>​<br>还可以进行花括号嵌套</p>
-<pre><code>[hjw@localhost ~]$ echo a{A{1,2},B{3,4},C}b
-输出结果:
-aA1b aA2b aB3b aB4b aCb
-</code></pre><p>利用这个特性，我们可以创建一系列规则相同的文件名</p>
-<pre><code>[hjw@localhost ~]$ mkdir {2007..2009}-0{1..9}
-会创建如下规则的文件夹：
-2007-01  2007-05  2007-09  2008-04  2008-08  2009-03  2009-07 
-2007-02  2007-06  2008-01  2008-05  2008-09  2009-04  2009-08 
-2007-03  2007-07  2008-02  2008-06  2009-01  2009-05  2009-09
-</code></pre><h2 id="命令替换"><a href="#命令替换" class="headerlink" title="命令替换"></a>命令替换</h2><blockquote>
-<p>命令替换允许我们把一个命令的输出作为一个展开模式来使用</p>
-</blockquote>
-<pre><code>[hjw@localhost ~]$ ls -l $(which cp)
-输出结果:
--rwxr-xr-x. 1 root root 155168 11月  6 2016 /usr/bin/cp
-与下面这条命令相同：
-[hjw@localhost ~]$ ls -l /usr/bin/cp
-</code></pre><p>这样我们可以在不知道文件夹路径的情况下直接看到文件夹信息</p>
-<h2 id="单双引号对比"><a href="#单双引号对比" class="headerlink" title="单双引号对比"></a>单双引号对比</h2><pre><code>[hjw@localhost ~]$ echo text ~/*2.txt {a,b} $(echo foo) $((2+2)) $USER
-text /home/hjw/hjw2.txt a b foo 4 hjw
-
-[hjw@localhost ~]$ echo &quot;text ~/*2.txt {a,b} $(echo foo) $((2+2)) $USER&quot;
-text ~/*2.txt {a,b} foo 4 hjw
-
-[hjw@localhost ~]$ echo &apos;text ~/*2.txt {a,b} $(echo foo) $((2+2)) $USER&apos;
-text ~/*2.txt {a,b} $(echo foo) $((2+2)) $USER
-</code></pre><p>单引号会禁止所有展开</p>
-<h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><pre><code>[hjw@localhost ~]$ echo &quot;The balance for user $USER is: \$5.00&quot;
-</code></pre><p>这里有选择的阻止上$5的展开。如果不使用 \ $5会被当作一个为空的变量</p>
-<h1 id="常见转义字符"><a href="#常见转义字符" class="headerlink" title="常见转义字符"></a>常见转义字符</h1><pre><code>\a    响铃（”警告”－导致计算机嘟嘟响）
-\b    退格符
-\n    新的一行。在类 Unix 系统中，产生换行。
-\r    回车符
-\t    制表符
-</code></pre><p>echo 加上一个 e 参数就可以解析转义字符 </p>
-<pre><code>[hjw@localhost ~]$ echo -e &quot;Time&apos;s up \a&quot;
-</code></pre></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/7976013b/">shell基础命令</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3><ul>
+</blockquote></div><a class="more" href="/posts/9b2cc92/#more">阅读更多</a><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/ec271926/">shell 展开</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><h2 id="字符展开"><a href="#字符展开" class="headerlink" title="字符展开"></a>字符展开</h2><pre><code>[hjw@localhost bin]$ echo *
+</code></pre><p>输出~目录下的文件</p></div><a class="more" href="/posts/ec271926/#more">阅读更多</a><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/7976013b/">shell基础命令</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3><ul>
 <li>pwd — 打印出当前工作目录名</li>
 <li>cd — 更改目录</li>
 <li>ls — 列出目录内容</li>
 </ul>
-<hr>
-<p><em>快捷键</em></p>
-<pre><code>cd        更改工作目录到你的家目录 
-cd    -   更改工作目录到你的家目录
-cd    ~user_name  更改工作目录到你的家目录
-</code></pre><hr>
-<ul>
-<li>less filename     浏览文件</li>
-<li>file filename     确定文件类型</li>
-</ul>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/82c8cab7/">shell基础</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Hello World !"</span></span><br></pre></td></tr></table></figure>
+<hr></div><a class="more" href="/posts/7976013b/#more">阅读更多</a><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/82c8cab7/">shell基础</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Hello World !"</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>“#!” 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即使用哪一种Shell。echo命令用于向窗口输出文本。</p>
-</blockquote>
-<p>作为可执行程序</p>
-<p>将上面的代码保存为test.sh，并 cd 到相应目录：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chmod +x ./test.sh  <span class="comment">#使脚本具有执行权限</span></span><br><span class="line">./test.sh  <span class="comment">#执行脚本</span></span><br></pre></td></tr></table></figure></p>
-<p>定义变量： variableName=”value”<br>使用变量： your_name=”mozhiyan” echo $your_name</p>
-<p>删除变量： unset variable_name<br>变量类型：局部变量、环境变量、shell变量<br>Shell特殊变量：Shell 0,#, ∗,@, ?,$和命令行参数<br>Shell替换：Shell变量替换，命令替换，转义字符<br>\ 反斜杠<br>\a 警报，响铃<br>\b 退格（删除键）<br>\f 换页(FF)，将当前位置移到下页开头<br>\n 换行<br>\r 回车<br>\t 水平制表符（tab键）<br>\v 垂直制表符 </p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/941a552f/">shell 脚本简介</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><blockquote>
+</blockquote></div><a class="more" href="/posts/82c8cab7/#more">阅读更多</a><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/941a552f/">shell 脚本简介</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-10-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/shell/">shell</a></span><div class="content"><blockquote>
 <p>Unix/Linux上常见的Shell脚本解释器有bash、sh、csh、ksh等，习惯上把它们称作一种Shell。我们常说有多少种Shell，其实说的是Shell脚本解释器。</p>
-</blockquote>
-<h2 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h2><blockquote>
-<p>bash是Linux标准默认的shell，本教程也基于bash讲解。bash由Brian Fox和Chet Ramey共同完成，是BourneAgain Shell的缩写，内部命令一共有40个。</p>
-</blockquote>
-<hr>
-<p>Linux使用它作为默认的shell是因为它有诸如以下的特色：<br>可以使用类似DOS下面的doskey的功能，用方向键查阅和快速输入并修改命令。<br>自动通过查找匹配的方式给出以某字符串开头的命令。<br>包含了自身的帮助功能，你只要在提示符下面键入help就可以得到相关的帮助。</p>
-<hr>
-<h2 id="sh"><a href="#sh" class="headerlink" title="sh"></a>sh</h2><blockquote>
-<p>sh 由Steve Bourne开发，是Bourne Shell的缩写，sh 是Unix 标准默认的shell。</p>
-</blockquote>
-<h2 id="ash"><a href="#ash" class="headerlink" title="ash"></a>ash</h2><blockquote>
-<p>ash shell 是由Kenneth Almquist编写的，Linux中占用系统资源最少的一个小shell，它只包含24个内部命令，因而使用起来很不方便。</p>
-</blockquote>
-<h2 id="csh"><a href="#csh" class="headerlink" title="csh"></a>csh</h2><blockquote>
-<p>csh 是Linux比较大的内核，它由以William Joy为代表的共计47位作者编成，共有52个内部命令。该shell其实是指向/bin/tcsh这样的一个shell，也就是说，csh其实就是tcsh。</p>
-</blockquote>
-<h2 id="ksh"><a href="#ksh" class="headerlink" title="ksh"></a>ksh</h2><blockquote>
-<p>ksh 是Korn shell的缩写，由Eric Gisin编写，共有42条内部命令。该shell最大的优点是几乎和商业发行版的ksh完全兼容，这样就可以在不用花钱购买商业版本的情况下尝试商业版本的性能了。</p>
-</blockquote>
-<blockquote>
-<p>注意：bash是 Bourne Again Shell 的缩写，是linux标准的默认shell ，它基于Bourne shell，吸收了C shell和Korn shell的一些特性。bash完全兼容sh，也就是说，用sh写的脚本可以不加修改的在bash中执行。</p>
-</blockquote>
-<blockquote>
-<p>因为Shell似乎是各UNIX系统之间通用的功能，并且经过了POSIX的标准化。因此，Shell脚本只要“用心写”一次，即可应用到很多系统上。因此，之所以要使用Shell脚本是基于：</p>
-<ul>
-<li>简单性：Shell是一个高级语言；通过它，你可以简洁地表达复杂的操作。</li>
-<li>可移植性：使用POSIX所定义的功能，可以做到脚本无须修改就可在不同的系统上执行。</li>
-<li>开发容易：可以在短时间内完成一个功能强大又妤用的脚本。</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>但是，考虑到Shell脚本的命令限制和效率问题，下列情况一般不使用Shell：</p>
-</blockquote>
-<pre><code>资源密集型的任务，尤其在需要考虑效率时（比如，排序，hash等等）。
-需要处理大任务的数学操作，尤其是浮点运算，精确运算，或者复杂的算术运算（这种情况一般使用C++或FORTRAN 来处理）。
-有跨平台（操作系统）移植需求（一般使用C 或Java）。
-复杂的应用，在必须使用结构化编程的时候（需要变量的类型检查，函数原型，等等）。
-对于影响系统全局性的关键任务应用。
-对于安全有很高要求的任务，比如你需要一个健壮的系统来防止入侵、破解、恶意破坏等等。
-项目由连串的依赖的各个部分组成。
-需要大规模的文件操作。
-需要多维数组的支持。
-需要数据结构的支持，比如链表或数等数据结构。
-需要产生或操作图形化界面 GUI。
-需要直接操作系统硬件。
-需要 I/O 或socket 接口。
-需要使用库或者遗留下来的老代码的接口。
-私人的、闭源的应用（shell 脚本把代码就放在文本文件中，全世界都能看到）。
-</code></pre></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/83be29ff/">Linux部分常用命令 二</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-09-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/linux/">linux</a></span><div class="content"><h2 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h2><pre><code>adduser &lt;用户名&gt;   添加用户
+</blockquote></div><a class="more" href="/posts/941a552f/#more">阅读更多</a><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/83be29ff/">Linux部分常用命令 二</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-09-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/linux/">linux</a></span><div class="content"><h2 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h2><pre><code>adduser &lt;用户名&gt;   添加用户
 passwd &lt;用户名&gt;    修改密码
 
 su &lt;用户名&gt;    登陆用户
 
 usermod redis –G redis  改变redis用户的群组到redis组
-</code></pre><h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><pre><code>chmod u+w &lt;文件路径&gt;    给该文件赋予写权限
-chmod u-w &lt;文件路径&gt;    取消该文件的写权限
-
-chmod 755 -R &lt;文件路径&gt; 给文件及其下文件赋予755权限
-参数：
-    -R  遍历文件下的子文件及其文件夹都赋予该权限
-    755
-        第一个数字表示文件所有者的权限
-        第二个数字表示与文件所有者同属一个用户组的其他用户的权限
-        第三个数字表示其他用户组的权限
-        权限分为三种：读(r=4),写(w=2),执行(x=1)。综合起来还有可读可执行(rx=4+1=5)、可读可写(rw=4+2=6)、可读可写可执行(rwx=4+2+1=7)
-        所以，chmod 755 设置用户的权限为：
-        1、文件所有都可读可写可执行      --7
-        2、与文件所有者同属一个用户组的其他用户可读可执行       --5
-        3、其它用户组可读可执行        --5
-
-chown -R redis:redis &lt;文件路径&gt;         修改文件及其下子文件的所有者
-</code></pre><h2 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h2><pre><code>sudo systemctl daemon-reload                重新加载服务
-sudo systemctl enable redis                 设置redis服务开机自启动
-
-shutdown -h now                             立即关机
-shutdown -h 20:25                           系统在今天的 20:25 分会关机
-shutdown -r now                             立即重启
-
-添加端口
-firewall-cmd --zone=public --add-port=80/tcp --permanent    （--permanent永久生效，没有此参数重启后失效）
-重新载入
-firewall-cmd --reload
-Centos7关闭防火墙
-systemctl stop firewalld.service
-查看防火墙状态
-firewall-cmd --state
-查看
-firewall-cmd --zone=public --query-port=80/tcp
-删除
-firewall-cmd --zone=public --remove-port=80/tcp --permanent
-
-du -sh *                                查看当前目录的空间占用情况
-uname －a                                查看版本及内核信息
-cat /proc/version                         查看当前操作系统版本信息
-cat /etc/issue  或cat /etc/redhat-release（Linux查看版本当前操作系统发行版信息）
-cat /proc/cpuinfo （Linux查看cpu相关信息，包括型号、主频、内核信息等）
-</code></pre><h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><pre><code>touch       新建文件
-
-tar -xvf &lt;文件路径&gt;  -C &lt;解压到的路径&gt;       文件解压命令 
-
-cat &lt;文件&gt;  直接输出文件内容到窗口中
-
-rmdir &lt;文件夹&gt; 删除文件夹(须为空文件夹)
-rmdir {b,c}     删除b,c两个空文件夹
-
-rm -rf &lt;文件夹&gt;        强制删除文件夹包括其子文件夹(慎用 ！！)
--r 就是向下递归，不管有多少级目录，一并删除
--f 就是直接强行删除，不作任何提示的意思
-
-cp -r &lt;文件或文件夹&gt;  &lt;复制到的路径&gt;   复制一个文件或目录到指定路径中
-
-find [查找路径] [查找条件] [处理动作] 查找某个文件
-
-find . -name &quot;filename*.*&quot;   .表示当前目录
-
-mkdir     创建一个目录
-mkdir -p     创建多级目录
-mkdir {a,b,c}     创建a,b,c三个目录
-
-查看文件或文件夹的磁盘使用空间
-
-du -h --max-depth=1 your_dest_dir
-</code></pre><h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tail [ -f ] [ -c Number | -n Number | -m Number | -b Number | -k Number ] [ File ]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>参数解释：<br>-f 该参数用于监视File文件增长。<br>-c Number 从 Number 字节位置读取指定文件<br>-n Number 从 Number 行位置读取指定文件。<br>-m Number 从 Number 多字节字符位置读取指定文件，比方你的文件假设包括中文字，假设指定-c参数，可能导致截断，但使用-m则会避免该问题。<br>-b Number 从 Number 表示的512字节块位置读取指定文件。<br>-k Number 从 Number 表示的1KB块位置读取指定文件。<br>File 指定操作的目标文件名称<br>上述命令中，都涉及到number，假设不指定，默认显示10行。Number前面可使用正负号，表示该偏移从顶部还是从尾部開始计算。<br>tail可运行文件一般在/usr/bin/以下</p>
-</blockquote>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/66217f64/">Spring-loaded实现热部署-开发环境</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-08-23</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Spring/">Spring</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/springload/">springload</a></span><div class="content"><blockquote>
+</code></pre></div><a class="more" href="/posts/83be29ff/#more">阅读更多</a><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/66217f64/">Spring-loaded实现热部署-开发环境</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-08-23</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Spring/">Spring</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/springload/">springload</a></span><div class="content"><blockquote>
 <p>Oracle提供的JDK其实已经自带一定程度的热加载功能，但是如果你修改了类名，方法名，或者添加了新类，新方法的话。Tomcat都需要重新启动来使得刚才的更改生效。而JRebel和spring-loaded都能有效地解决这个问题。其中springloaded是开源软件，可以免费使用。其主页：<a href="https://github.com/spring-projects/spring-loaded" target="_blank" rel="noopener">https://github.com/spring-projects/spring-loaded</a></p>
-</blockquote>
-<h2 id="获取jar包"><a href="#获取jar包" class="headerlink" title="获取jar包"></a>获取jar包</h2><blockquote>
-<p>首先我们需要得到spring-loaded的jar包，上面的github链接中可以下载到。这里我用的是最新的springloaded-1.2.7.RELEASE.jar</p>
-<p>存放位置：D:\springloaded-1.2.7.RELEASE.jar</p>
-</blockquote>
-<h2 id="IDE中部署"><a href="#IDE中部署" class="headerlink" title="IDE中部署"></a>IDE中部署</h2><blockquote>
-<p>打开项目，在启动之前按以下进行配置</p>
-</blockquote>
-<h3 id="idea中"><a href="#idea中" class="headerlink" title="idea中"></a>idea中</h3><p>在启动Tomcat之前配置VM option。填写以下参数：<br>​<br>​    -javaagent:D:/springloaded-1.2.7.RELEASE.jar -noverify</p>
-<p>其中参数中Springloaded的路径按实际填写</p>
-<p><img src="http://i1.bvimg.com/608383/957314366cb70661s.png" alt="Markdown"></p>
-<p>配置完成后可以启动项目了</p>
-<hr>
-<h3 id="eclipse中"><a href="#eclipse中" class="headerlink" title="eclipse中"></a>eclipse中</h3><p>右击项目-&gt;Run as-&gt;Run configurations… 在tomcat启动项添加VM参数<br>​<br>​    -javaagent:D:/springloaded-1.2.7.RELEASE.jar -noverify</p>
-<p>其中参数中Springloaded的路径按实际填写</p>
-<p><img src="http://i4.bvimg.com/608383/3e354d4709cf930cs.png" alt="Markdown"></p>
-<p>配置完成后可以启动项目了</p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote>
-<p>为了解Springloaded 适用于哪些更改，下面来作几个测试</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>我在上述启动的SSM项目中，在一个控制器里<strong>添加</strong>了以下方法</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试SpringLoaded</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span> </span><br><span class="line"><span class="function"><span class="keyword">public</span>  String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello Spring Loaded!"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>保存后通过浏览器访问失败，找不到/hello 这个路径。通过重启Tomcat后可以正常访问test方法</p>
-<hr>
-<blockquote>
-<p><strong>继续添加test2()方法，不使用注解</strong>，为了在浏览器中方便测试，通过test()方法来访问test2()方法。（经过上面重启Tomcat后test方法可以访问）</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试SpringLoaded</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span>  String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">this</span>.test2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span>  String <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="string">"Spring Loaded By Test2"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>浏览器输出</em></p>
-<p>​    “Spring Loaded By Test2”</p>
-<blockquote>
-<p>说明我们添加的第二个方法test2()没有经过重启服务器就可以访问了，热部署生效</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>我们继续 <strong>新建一个类</strong>，并在test()方法中去调用</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**新建类</span></span><br><span class="line"><span class="comment"> * Created by JiangWei.Huang</span></span><br><span class="line"><span class="comment"> * 2017/8/22 0022.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestCtrl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/hello3"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"TestCtrl-test3"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**修改test方法调用新建的类TestCtr中的test3方法</span></span><br><span class="line"><span class="comment"> * 测试SpringLoaded</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span>  String <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">   TestCtrl testCtrl = <span class="keyword">new</span> TestCtrl();</span><br><span class="line">   <span class="keyword">return</span> testCtrl.test3();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>浏览器输出</strong></p>
-<p>​    “TestCtrl-test3”</p>
-<blockquote>
-<p>说明我们新建的类，在不用重启的情况下也能够被调用到了，热部署生效</p>
-<p>但值得注意的是，我们新建的类中，在类上与方法上都写了Spring注解，但这里是也不生效的。@RestController这个注解没有生效，/hello3这个路径也是访问不了的。需要重启服务器才生效</p>
-<p>另外在Idea中修改后自动保存但不会自动重新编译，如果在Idea中修改后热部署没有生效，按ctrl+shift+f9重新编译。也可以设置Idea自动编译，设置如下图。</p>
-<p><img src="http://i4.bvimg.com/608383/aee36cfab3a965e7s.png" alt="Markdown"></p>
-</blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>经过上面的测试我们可以得出一些结论。像官方所说，可以实现以下的热更新</p>
-<blockquote>
-<p>Spring Loaded allows you to add/modify/delete methods/fields/constructors. The annotations on types/methods/fields/constructors can also be modified and it is possible to add/remove/change values in enum types.</p>
-<p>Spring加载允许您添加/修改/删除/字段/方法构造函数。注释类型/方法/字段/构造函数，并且还可以在枚举类型中添加/删除/更改值。</p>
-</blockquote>
-<p>但是对于第三方像是Spring注解这些的修改，spring-loaded就无能为力了，必须求助于更加强大的，收费的JRebel了</p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/edbdc617/">error double free or corruption</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-08-17</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/ubuntu/">ubuntu</a></span><div class="content"><blockquote>
+</blockquote></div><a class="more" href="/posts/66217f64/#more">阅读更多</a><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/edbdc617/">error double free or corruption</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-08-17</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/ubuntu/">ubuntu</a></span><div class="content"><blockquote>
 <p>自己在虚拟机是捣鼓ubuntu。之前搭建了Java Web的运行环境。第二天发现环境正常，但apt-get update 或者wget url 时会报一大堆错误，好像是内存问题。在这记录一下，以免今后又遇到忘了。</p>
+</blockquote></div><a class="more" href="/posts/edbdc617/#more">阅读更多</a><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/posts/681a0f1c/">SpringBoot 中Aop处理请求</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2017-08-09</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Spring-Boot/">Spring Boot</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/SpringBoot/">SpringBoot</a></span><div class="content"><a id="more"></a>
+<h2 id="配置AOP"><a href="#配置AOP" class="headerlink" title="配置AOP"></a>配置AOP</h2><ul>
+<li><p>添加POM依赖</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-starter-aop&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建类</p>
+<blockquote>
+<p>只需使用@Aspect注解。再加上@Component 表示此类为Spring管理组件</p>
 </blockquote>
-<p>错误里有一句这样的话，可以试试下面的方法：</p>
-<pre><code>error in &apos;appstreamcli&apos;:double free or corruption
-</code></pre><p>方法：<br>分别运行下面三个命令就正常了</p>
-<pre><code>~    #:sudo pkill -KILL appstreamcli
-
-~    #:wget -P /tmp https://launchpad.net/ubuntu/+archive/primary/+files/appstream_0.9.4-1ubuntu1_amd64.deb
-https://launchpad.net/ubuntu/+archive/primary/+files/libappstream3_0.9.4-1ubuntu1_amd64.deb 
-
-~    #:sudo dpkg -i /tmp/appstream_0.9.4-1ubuntu1_amd64.deb /tmpbappstream3_0.9.4-1ubuntu1_amd64.deb
-</code></pre><p>​    </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpAspect</span> </span>&#123;</span><br><span class="line">	<span class="comment">//日志管理</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(HttpAspect.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置切入点方法</p>
+<blockquote>
+<p>在上面新建的类中写如下方法，配置AOP的切入点。</p>
+<p>public <em> com.hjw.controller.GrilController.</em>(..) 表示GrilController下的所有方法</p>
+<p>public * com.hjw.controller.GrilController.addGril(..) 则表示GrilController 下的addGril()方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"execution(public * com.hjw.controller.GrilController.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置AOP处理请求方法</p>
+<ul>
+<li><p>doBefore()</p>
+<blockquote>
+<p>在进入切点之前处理请求。获取请求的url,ip,类方法与参数等信息</p>
+</blockquote>
+</li>
+<li><p>doAfter()</p>
+<blockquote>
+<p>在进入切点之后执行日志打印操作</p>
+</blockquote>
+</li>
+<li><p>doAfterReturn()</p>
+<blockquote>
+<p>获取切点方法返回的值，并通过日志打印出来</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Before</span>(<span class="string">"log()"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doBefore</span><span class="params">(JoinPoint joinPoint)</span></span>&#123;</span><br><span class="line">       <span class="comment">//获取请求信息</span></span><br><span class="line">       ServletRequestAttributes attributes = (ServletRequestAttributes) 		RequestContextHolder.getRequestAttributes();</span><br><span class="line">       HttpServletRequest request = attributes.getRequest();</span><br><span class="line">       <span class="comment">//获取URL</span></span><br><span class="line">       logger.info(<span class="string">"url=&#123;&#125;"</span>,request.getRequestURL());</span><br><span class="line">       <span class="comment">//获取IP</span></span><br><span class="line">       logger.info(<span class="string">"ip=&#123;&#125;"</span>,request.getRemoteAddr());</span><br><span class="line">       <span class="comment">//获取类方法</span></span><br><span class="line">       logger.info(<span class="string">"class_method=&#123;&#125;"</span>, joinPoint.getSignature().getDeclaringTypeName() +<span class="string">"."</span>+ joinPoint.getSignature().getName());</span><br><span class="line">       <span class="comment">//获取参数</span></span><br><span class="line">       logger.info(<span class="string">"args=&#123;&#125;"</span>,joinPoint.getArgs());</span><br><span class="line">       logger.info(<span class="string">"添加数据之前"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="meta">@After</span>(<span class="string">"log()"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAfter</span><span class="params">()</span></span>&#123;</span><br><span class="line">       logger.info(<span class="string">"添加数据之后"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="meta">@AfterReturning</span>(returning = <span class="string">"object"</span>,pointcut = <span class="string">"log()"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAfterReturn</span><span class="params">(Object object)</span></span>&#123;</span><br><span class="line">       logger.info(<span class="string">"return=&#123;&#125;"</span>, object.toString());</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 </div><hr></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2019 By HJW</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
