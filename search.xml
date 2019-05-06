@@ -4,9 +4,9 @@
   
     
     <entry>
-      <title>2.React的组件</title>
-      <link href="/posts/b6943ee0/"/>
-      <url>/posts/b6943ee0/</url>
+      <title>React的组件</title>
+      <link href="/posts/989a4a19/"/>
+      <url>/posts/989a4a19/</url>
       
         <content type="html"><![CDATA[<p>React 以组件的形式来构建页面。把页面上的各个部分拆分成独立的组件，这些组件可以组合，嵌套，复用从而组成我们的页面。可以说 React 中一切皆组件。</p><h1 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h1><p>React 有三种创建组件的方式，我们可以按自己的需要选择使用那一种。</p><a id="more"></a><h2 id="无状态函数式组件"><a href="#无状态函数式组件" class="headerlink" title="无状态函数式组件"></a>无状态函数式组件</h2><p>React 中无状态组件是一种最简单的组件，它没有<code>state</code> 和各种生命周期函数</p><p>每个组件都可以通过一个<code>state</code>状态的改变从而产生变化</p>]]></content>
       
@@ -1028,9 +1028,9 @@
     
     
     <entry>
-      <title>1.初识React</title>
-      <link href="/posts/8b4844ed/"/>
-      <url>/posts/8b4844ed/</url>
+      <title>初识React</title>
+      <link href="/posts/c4548fcf/"/>
+      <url>/posts/c4548fcf/</url>
       
         <content type="html"><![CDATA[<blockquote><p>React是FaceBook开源的一个用于构建用户界面的JavaScript库，已经应用于FaceBook及旗下的Instagram。 React专注于MVC框架中的V，即视图层。它引入了虚拟DOM的概念，提高了运行效率。</p></blockquote><p>根据阮一峰老师的 React 入门实例教程 学习过程中作的笔记</p><p>React在线 编辑器 ：<a href="https://jsfiddle.net/reactjs/69z2wepo/" target="_blank" rel="noopener">https://jsfiddle.net/reactjs/69z2wepo/</a> </p><a id="more"></a><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">    &lt;script  src=&quot;https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script  src=&quot;https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;container&quot;&gt;</span><br><span class="line">        &lt;!-- This element&apos;s contents will be replaced with your component. --&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script type=&quot;text/babel&quot;&gt;</span><br><span class="line">        //创建一个组件</span><br><span class="line">        var Hello = React.createClass(&#123;</span><br><span class="line">         //添加样式对象,注意属性名在这里需要使用驼峰形式</span><br><span class="line">         /*也可以直接在html中添加样式类名：需要使用className 而不是class(Js中的关键字)*/</span><br><span class="line">             var styleObj = &#123;</span><br><span class="line">             color:#f00,</span><br><span class="line">             fontSize:100px</span><br><span class="line">             &#125;,</span><br><span class="line">             render: function() &#123;</span><br><span class="line">             //this.props 指在属性的集合</span><br><span class="line">             return &lt;div style=&#123;styleObj&#125;&gt;Hello &#123;this.props.name&#125;&lt;/div&gt;</span><br><span class="line">             &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">         </span><br><span class="line">        //将 解析成DOM节点并插入到浏览器的DOM结构中。 附带一个属性：name</span><br><span class="line">        ReactDOM.render(</span><br><span class="line">            &lt;Hello name=&quot;World&quot; /&gt;,</span><br><span class="line">            document.getElementById(&apos;container&apos;)</span><br><span class="line">        ); </span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><ul><li>组件命名首字母需要大写，比如上面的Hello组件</li><li>所有组件类都必须有自己的 render 方法，用于输出组件</li><li>组件中的render方法中返回的HTML语言必须为一个标签。比如下面这段代码就会报错。因为它返回了两个顶层标签: <code>&lt;h1&gt;</code>和<code>&lt;p&gt;;</code>所以当有几个标签返回时， 我们必须用一个div 或其它标签将其包装成一个整体。</li></ul>]]></content>
       
@@ -1245,31 +1245,6 @@
         <tags>
             
             <tag> Linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>SpringMVC实现Restful架构的配置</title>
-      <link href="/posts/6884270c/"/>
-      <url>/posts/6884270c/</url>
-      
-        <content type="html"><![CDATA[<h1 id="配置Web-xml"><a href="#配置Web-xml" class="headerlink" title="配置Web.xml"></a>配置Web.xml</h1><pre><code>将url-partten改为/</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">&lt;servlet-name&gt;SpringMVC&lt;/servlet-name&gt;</span><br><span class="line">&lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure><a id="more"></a><h1 id="配置SpringMVC-xml"><a href="#配置SpringMVC-xml" class="headerlink" title="配置SpringMVC.xml"></a>配置SpringMVC.xml</h1><pre><code>加上&lt;mvc:default-servlet-handler/&gt;加入静态资源映射</code></pre><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- 静态资源映射 --&gt;</span><br><span class="line">&lt;mvc:resources location=&quot;/js/&quot; mapping=&quot;/js/**&quot; /&gt;</span><br><span class="line">&lt;mvc:resources location=&quot;/css/&quot; mapping=&quot;/css/**&quot; /&gt;</span><br><span class="line">&lt;mvc:resources location=&quot;/images/&quot; mapping=&quot;/images/**&quot; /&gt;</span><br><span class="line">&lt;mvc:resources location=&quot;/fonts/&quot; mapping=&quot;/fonts/**&quot; /&gt;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> Spring </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Spring </tag>
             
         </tags>
       
