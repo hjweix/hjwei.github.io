@@ -64,9 +64,9 @@ ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = {
 <h2 id="构建image"><a href="#构建image" class="headerlink" title="构建image"></a>构建image</h2><p>前面的配置都完成后，在IDE的命令窗口只需要一个命令即可实现对项目的打包及构建镜像到Docker服务器。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn package</span><br></pre></td></tr></table></figure>
 <p>执行命令过程如图：</p>
-<p><img src="https://ws1.sinaimg.cn/large/005RGBbLly1fxn1bw5kwlj310w0ic75f.jpg" alt="打包并构建image"></p>
+<p><img src="https://raw.githubusercontent.com/hjwjw/hjwjw.github.io/master/img/20190507141324.png" alt="打包并构建image"></p>
 <p>可以看到按Dockerfile一步步构建镜像了，执行完成后我们就可以在Docker服务器上查看新的image，如下：</p>
-<p><img src="https://ws1.sinaimg.cn/large/005RGBbLly1fxn1j5kvy7j30kf04awf8.jpg" alt="docker imges"></p>
+<p><img src="https://raw.githubusercontent.com/hjwjw/hjwjw.github.io/master/img/20190507141342.png" alt="docker imges"></p>
 <p>至此，Docker 构建微服务镜像完成。源码： <a href="https://github.com/hjwjw/Spring-Cloud-With-Docker-Practice-Demo/tree/master/microservice-consumer-movie" target="_blank" rel="noopener">microservice-customer-movie</a></p>
 <p>镜像运行可以参考本博客分类：<a href="https://hjwjw.gitee.io/categories/Docker/">Docker</a></p>
 <h2 id="镜像tag"><a href="#镜像tag" class="headerlink" title="镜像tag"></a>镜像tag</h2><p>在使用上面的方式生成镜像时，我们前面在<code>pom.xml</code> 中已经配置了构建时的<code>tag</code>：</p>
