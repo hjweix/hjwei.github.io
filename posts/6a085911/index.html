@@ -23,13 +23,14 @@ ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = {
 <p>[TOC]</p>
 <hr>
 <h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p> 项目中有三台应用服务器，系统为Centos 7 ，应用地址分别为:</p>
+<a id="more"></a>
 <ul>
 <li>192.168.198.229:8080</li>
 <li>192.168.198.230:8080</li>
 <li>192.168.198.231:8080</li>
 </ul>
 <p>应用使用tomcat部署，目前没有域名，都是使用IP在局域网中单独访问。因为没有单独的服务器可以用来部署Nginx,所以Nginx部署在229服务器上。</p>
-<a id="more"></a>
+<!--more-->
 <h3 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><p>在安装Nginx前，需要先安装好一些依赖包。<br><strong>gcc依赖包</strong></p>
 <ul>
 <li>gcc-4.8.5-16.el7.x86_64.rpm</li>
