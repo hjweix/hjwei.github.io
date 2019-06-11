@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="SpringMVC中参数绑定常用注解"><meta name="keywords" content="SpringMVC"><meta name="author" content="HJW"><meta name="copyright" content="HJW"><title>SpringMVC中参数绑定常用注解 | HJW's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?3a101c3aa7d1cde834d9d6b197500902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-139524382-1', 'auto');
+ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ajax中Content-Type"><span class="toc-number">1.</span> <span class="toc-text">Ajax中Content-Type</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#multipart-form-data"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">multipart/form-data</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#application-json"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">application/json</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#text-xml"><span class="toc-number">1.0.1.</span> <span class="toc-text">text/xml</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#常用注解"><span class="toc-number">2.</span> <span class="toc-text">常用注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PathVariable"><span class="toc-number">2.1.</span> <span class="toc-text">@PathVariable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RequestHeader"><span class="toc-number">2.2.</span> <span class="toc-text">@RequestHeader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CookieValue"><span class="toc-number">2.3.</span> <span class="toc-text">@CookieValue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ReuqestParam"><span class="toc-number">2.4.</span> <span class="toc-text">@ReuqestParam</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RequestBody"><span class="toc-number">2.5.</span> <span class="toc-text">@RequestBody</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SessionAttributes"><span class="toc-number">2.6.</span> <span class="toc-text">@SessionAttributes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ModelAttribute"><span class="toc-number">2.7.</span> <span class="toc-text">@ModelAttribute</span></a></li></ol></li></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/17232182?s=460&amp;v=4"></div><div class="author-info__name text-center">HJW</div><div class="author-info__description text-center">技术总结</div><div class="follow-button"><a href="https://github.com/hjwjw">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">87</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">62</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">21</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/img/bg.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">HJW's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/about">关于</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/categories">目录</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/books">书目</a></span></div><div id="post-info"><div id="post-title">SpringMVC中参数绑定常用注解</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-06-10</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Spring/">Spring</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><blockquote>
+<p>不积跬步，无以至千里。 不积小流，无以成江海。</p>
+</blockquote>
+<p>今天在写一个Ajax请求到Controller时被参数接收的问题耽误了很久。随后详细查了SpringMVC中Controller参数绑定注解，整理记录如下。</p>
+<p>在写SpringMVC参数绑定注解前，先看看该如何使用Ajax请求。</p>
+<h2 id="Ajax中Content-Type"><a href="#Ajax中Content-Type" class="headerlink" title="Ajax中Content-Type"></a>Ajax中Content-Type</h2><p>HTTP请求中使用 <code>Content-Type</code> 这个字段来表示报文主体的对象类型。下面是常用的 <code>Content-Type</code> </p>
+<ul>
+<li>application/x-www-form-urlencoded</li>
+</ul>
+<p>这是最常用的POST提交数据的方式。Ajax中不设置<code>Content-Type</code>则默认以这种方式提交数据。</p>
+<p>数据格式以<code>key=value&amp;key2=value2</code> 的方式进行编码，作为一个FormData对象进行发送。</p>
+<p><img src="https://raw.githubusercontent.com/hjwjw/hjwjw.github.io/master/img/20190610225224.png" alt="form表单提交"></p>
+<ul>
+<li><h5 id="multipart-form-data"><a href="#multipart-form-data" class="headerlink" title="multipart/form-data"></a>multipart/form-data</h5></li>
+</ul>
+<p>在使用表单进行上传文件时使用这种方式。这里不详细展开。</p>
+<ul>
+<li><h5 id="application-json"><a href="#application-json" class="headerlink" title="application/json"></a>application/json</h5></li>
+</ul>
+<p>这种方式现在很常用，它表示数据是序列化的JSON字符串。通常配合 JSON.stringify() 将一个对象转化成JSON字符串。</p>
+<ul>
+<li><h4 id="text-xml"><a href="#text-xml" class="headerlink" title="text/xml"></a>text/xml</h4></li>
+</ul>
+<p>表示数据是XML的格式。data中传递的数据需要符合XML格式。</p>
+<h2 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h2><p>在接收请求中的参数时我们经常使用以下注解，可以根据它们处理的Request不同部分分类：</p>
+<ul>
+<li>处理Request Uri (指Uri中的Variable，不包括拼接在URL中的 QueryString )<ul>
+<li>@PathVariable</li>
+</ul>
+</li>
+<li>处理Request Header<ul>
+<li>@RequestHeader</li>
+<li>@CookieValue</li>
+</ul>
+</li>
+<li>处理Request Body<ul>
+<li>@ReuqestParam</li>
+<li>@RequestBody</li>
+</ul>
+</li>
+<li>处理 Attribute 类型<ul>
+<li>@SessionAttributes</li>
+<li>@ModelAttribute</li>
+</ul>
+</li>
+</ul>
+<h3 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h3><p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(value = <span class="string">"/&#123;userId&#125;/roles"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">queryUserAndRoles</span><span class="params">(HttpServletRequest request, @PathVariable Long userId)</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="RequestHeader"><a href="#RequestHeader" class="headerlink" title="@RequestHeader"></a>@RequestHeader</h3><p>从名字可以知道它是获取Request的Header部分字段。</p>
+<p>示例：</p>
+<p>一个Request Header:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /dwp/contract/rebuildpdf HTTP/1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 20</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Accept: application/json, text/javascript, */*; q=0.01</span><br></pre></td></tr></table></figure>
+<p>在Controller中获取Request Header中的 <code>Host</code> 与 <code>Content-Length</code> 字段值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(value = <span class="string">"/dwp/contract/headerInfo"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">headerInfo</span><span class="params">(@RequestHeader(<span class="string">"Host"</span>)</span> String Host, @<span class="title">RequestHeader</span><span class="params">(<span class="string">"Content-Length"</span>)</span> String ContentLength) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CookieValue"><a href="#CookieValue" class="headerlink" title="@CookieValue"></a>@CookieValue</h3><p>获取Request Header 中 Cookie 中的值。</p>
+<p>示例：</p>
+<p>有如下Cookie：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie: _ga=GA1.1.54311297.1548073822; Webstorm-244b1d3=90a9034f-e9c9-4a89-86a7-aaef4addf18e; Idea-4ae3b438=0eb7fd0e-54c2-4672-960c-36b458508707; Webstorm-ead79411=ce4860a6-bbd1-487d-900b-3b8fd9825418; Hm_lvt_3a101c3aa7d1cde834d9d6b197500902=1557208148,1559381054; loginKey=cbe4e8d0-059e-4bd3-82f9-5360e570839a;</span><br></pre></td></tr></table></figure>
+<p>在Controller中获取Cookie中的<code>loginKey</code>的值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/dwp/contract/rebuildpdf"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rebuildpdf</span><span class="params">(HttpServletRequest request, @CookieValue(<span class="string">"loginKey"</span>)</span> String cookieLoginKey)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ReuqestParam"><a href="#ReuqestParam" class="headerlink" title="@ReuqestParam"></a>@ReuqestParam</h3><p>requestParam有两种情况：</p>
+<p><strong>1、处理简单类型绑定</strong></p>
+<p>可以处理使用<code>request.getParameter()</code>获取的String，或<code>Get</code>方式中的<code>queryString</code> ，和<code>POST</code> 方式中 body data的值</p>
+<p>示例：</p>
+<p>Ajax：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url:_basePath + <span class="string">'/dwp/contract/rebuildpdf?contractTempNumber='</span> + $(<span class="string">'#contractTempNumber'</span>).val(),</span><br><span class="line">    type: <span class="string">"GET"</span>,</span><br><span class="line">    dataType: <span class="string">"json"</span>,</span><br><span class="line">    contentType: <span class="string">"application/json"</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Controller:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/dwp/contract/rebuildpdf"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ResponseData <span class="title">rebuildpdf</span><span class="params">(HttpServletRequest request,  @RequestParam String contractTempNumber)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2、处理表单数据</strong></p>
+<p>获取Request中的formData参数。因此Ajax请求时<code>Content-Type</code> 必须是 <code>application/x-www-form-urlencoded</code> ,data中传的是对象。</p>
+<p>示例：</p>
+<p>Ajax：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url:_basePath + <span class="string">'/dwp/contract/rebuildpdf'</span>,</span><br><span class="line">    type: <span class="string">"POST"</span>,</span><br><span class="line">    dataType: <span class="string">"json"</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        contractTempNumber: $(<span class="string">'#contractTempNumber'</span>).val()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Controller:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/dwp/contract/rebuildpdf"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rebuildpdf</span><span class="params">(HttpServletRequest request, @RequestParam String contractTempNumber)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h3><p>获取Request 的Body</p>
+<p>示例：</p>
+<p>Ajax：</p>
+<p>使用<code>JSON.stringify</code> 把对象转化成JSON字符串</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url:_basePath + <span class="string">'/dwp/contract/rebuildpdf'</span>,</span><br><span class="line">    type: <span class="string">"POST"</span>,</span><br><span class="line">    dataType: <span class="string">"json"</span>,</span><br><span class="line">    contentType: <span class="string">"application/json"</span>,</span><br><span class="line">    data: <span class="built_in">JSON</span>.stringify(&#123;<span class="attr">contractTempNumber</span>:  $(<span class="string">'#contractTempNumber'</span>).val()&#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Controller:</p>
+<p>对象<code>DwpContracts</code>中有<code>contractTempNumber</code> 这个属性字段。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/dwp/contract/rebuildpdf"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rebuildpdf</span><span class="params">(HttpServletRequest request,  @RequestBody DwpContracts contract)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="SessionAttributes"><a href="#SessionAttributes" class="headerlink" title="@SessionAttributes"></a>@SessionAttributes</h3><p>该注解用来绑定HttpSession中的attribute对象的值，便于在方法中的参数里使用。该注解有value、types两个属性，可以通过名字和类型指定要使用的attribute 对象；</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/editPet.do"</span>)</span><br><span class="line"><span class="meta">@SessionAttributes</span>(<span class="string">"pet"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EditPetForm</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ModelAttribute"><a href="#ModelAttribute" class="headerlink" title="@ModelAttribute"></a>@ModelAttribute</h3><p>该注解有两个用法，一个是用于方法上，一个是用于参数上；</p>
+<p>用于方法上时：  通常用来在处理@RequestMapping之前，为请求绑定需要从后台查询的model；</p>
+<p>用于参数上时： 用来通过名称对应，把相应名称的值绑定到注解的参数bean上；要绑定的值来源于：</p>
+<p>A） @SessionAttributes 启用的attribute 对象上；</p>
+<p>B） @ModelAttribute 用于方法上时指定的model对象；</p>
+<p>C） 上述两种情况都没有时，new一个需要绑定的bean对象，然后把request中按名称对应的方式把值绑定到bean中。</p>
+<p>用到方法上@ModelAttribute的示例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Add one attribute</span></span><br><span class="line"><span class="comment">// The return value of the method is added to the model under the name "account"</span></span><br><span class="line"><span class="comment">// You can customize the name via @ModelAttribute("myAccount")</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">@ModelAttribute</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Account <span class="title">addAccount</span><span class="params">(@RequestParam String number)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> accountManager.findAccount(number);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用在参数上的@ModelAttribute示例代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/owners/&#123;ownerId&#125;/pets/&#123;petId&#125;/edit"</span>, method = RequestMethod.POST)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processSubmit</span><span class="params">(@ModelAttribute Pet pet)</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先查询 @SessionAttributes有无绑定的Pet对象，若没有则查询@ModelAttribute方法层面上是否绑定了Pet对象，若没有则将URI template中的值按对应的名称绑定到Pet对象的各属性上。</p>
+<p>参考：<a href="https://blog.csdn.net/walkerjong/article/details/7946109" target="_blank" rel="noopener">https://blog.csdn.net/walkerjong/article/details/7946109</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">HJW</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hjwjw.gitee.io/posts/d804aaaf/">https://hjwjw.gitee.io/posts/d804aaaf/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hjwjw.gitee.io">HJW's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SpringMVC/">SpringMVC</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/posts/156e5ee9/"><span>DDD及开发模式对比</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(/img/bg.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2019 By HJW</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
