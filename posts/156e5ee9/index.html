@@ -24,6 +24,7 @@ ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = {
 </blockquote>
 <p>转载自：Jiangzhou.bo</p>
 <p>本文总结常用开发模式，简述DDD领域驱动设计，基于DEMO整理出后台架构模式。</p>
+<a id="more"></a>
 <h2 id="分层模式"><a href="#分层模式" class="headerlink" title="分层模式"></a>分层模式</h2><p>从大的范围来分，软件可以分为两个层次：前端和后台。前端负责与用户进行交互，负责接收和校验用户输入，并向用户反馈输出，其业务操作是委托给后台来实现的。我们平常见到很多分层架构模式，核心目的都是分层、解耦。</p>
 <h3 id="MVC模式"><a href="#MVC模式" class="headerlink" title="MVC模式"></a>MVC模式</h3><p>MVC(Model-View-Controller)，即数据模型-视图-控制器，MVC 是开发客户端最经典的设计模式。MVC这个概念最早出现在桌面客户端上面，是C/S里面的C，在Web开发中得以发扬光大，实际上，移动App中也几乎都是MVC模式的。</p>
 <p>在客户端开发中，Controller管理用户输入、输出和图形界面。数据来自Model部分，Model实际上集中管理了业务数据，是通向后台系统的通道。这使对同一种业务数据展现多种图形界面成为了可能，Controller存在的目的则是确保M和V的同步，一旦M改变，V应该同步更新。</p>
