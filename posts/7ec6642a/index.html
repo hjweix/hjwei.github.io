@@ -24,6 +24,7 @@ ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = {
 </blockquote>
 <p>Gson提供了<code>fromJson()</code> 和<code>toJson()</code> 两个直接用于解析和生成的方法，前者实现反序列化，后者实现了序列化。</p>
 <p>今天在使用 <code>fromJson()</code>遇到一个无法识别泛型的问题。</p>
+<a id="more"></a>
 <p>我的需求是通过<code>fromJson()</code> 反序列化返回一个List。</p>
 <p>主要代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">select</span><span class="params">(T <span class="keyword">var</span>)</span> </span>&#123;</span><br><span class="line">    List&lt;T&gt; list = Lists.newArrayList();</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">    JsonArray jsonArray = jsonObject.getAsJsonObject(<span class="string">"d"</span>).getAsJsonArray(<span class="string">"results"</span>);</span><br><span class="line">    list = gson.fromJson(jsonArray, <span class="keyword">new</span> TypeToken&lt;ArrayList&lt;T&gt;&gt;() &#123;&#125;.getType());</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
