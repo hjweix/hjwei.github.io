@@ -4,13 +4,25 @@
   
     
     <entry>
-      <title></title>
-      <link href="/posts/0/"/>
-      <url>/posts/0/</url>
+      <title>Git常用命令补充</title>
+      <link href="/posts/fbf3cb42/"/>
+      <url>/posts/fbf3cb42/</url>
       
-        <content type="html"><![CDATA[<h2 id="Git配置"><a href="#Git配置" class="headerlink" title="Git配置"></a>Git配置</h2><h3 id="查看Git配置"><a href="#查看Git配置" class="headerlink" title="查看Git配置"></a>查看Git配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --list<span class="comment">#此命令会列出所有Git当时能找到的配置</span></span><br><span class="line">git config --system --list<span class="comment">#查看系统git配置</span></span><br><span class="line">git config --<span class="built_in">local</span> --list<span class="comment">#查看当前仓库git配置</span></span><br><span class="line">git config --global --list<span class="comment">#查看当前用户git配置</span></span><br></pre></td></tr></table></figure><h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改git 全局中的user.email</span></span><br><span class="line">git config --global user.email <span class="built_in">test</span>@test.com </span><br><span class="line"><span class="comment">#修改git 全局中的的user.name  </span></span><br><span class="line">git config --global user.name <span class="built_in">test</span></span><br></pre></td></tr></table></figure><p>只修改当前仓库把 <code>--global</code> 改成 <code>--local</code> 即可</p><h2 id="设置分支关联"><a href="#设置分支关联" class="headerlink" title="设置分支关联"></a>设置分支关联</h2><p>背景：从其它分支基础上建立自己的分支时，自己的分支关联的远程分支还是之前的分支时，可以使用这个命令关联到自己的远程分支。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --<span class="built_in">set</span>-upstream-to=origin/branch1 branch1</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<h3 id="查看Git配置"><a href="#查看Git配置" class="headerlink" title="查看Git配置"></a>查看Git配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --list<span class="comment">#此命令会列出所有Git当时能找到的配置</span></span><br><span class="line">git config --system --list<span class="comment">#查看系统git配置</span></span><br><span class="line">git config --<span class="built_in">local</span> --list<span class="comment">#查看当前仓库git配置</span></span><br><span class="line">git config --global --list<span class="comment">#查看当前用户git配置</span></span><br></pre></td></tr></table></figure><h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改git 全局中的user.email</span></span><br><span class="line">git config --global user.email <span class="built_in">test</span>@test.com </span><br><span class="line"><span class="comment">#修改git 全局中的的user.name  </span></span><br><span class="line">git config --global user.name <span class="built_in">test</span></span><br></pre></td></tr></table></figure><p>只修改当前仓库把 <code>--global</code> 改成 <code>--local</code> 即可</p><h2 id="设置分支关联"><a href="#设置分支关联" class="headerlink" title="设置分支关联"></a>设置分支关联</h2><p>背景：从其它分支基础上建立自己的分支时，自己的分支关联的远程分支还是之前的分支时，可以使用这个命令关联到自己的远程分支。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --<span class="built_in">set</span>-upstream-to=origin/branch1 branch1</span><br></pre></td></tr></table></figure>]]></content>
       
       
+      <categories>
+          
+          <category> TortoiseGit </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> TortoiseGit </tag>
+            
+        </tags>
       
     </entry>
     
