@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="JVM调优"><meta name="keywords" content="JVM"><meta name="author" content="HJW"><meta name="copyright" content="HJW"><title>JVM调优 | HJW's Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.6.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.6.1"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?3a101c3aa7d1cde834d9d6b197500902";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-139524382-1', 'auto');
+ga('send', 'pageview');</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM内存结构"><span class="toc-number">1.</span> <span class="toc-text">JVM内存结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础工具"><span class="toc-number">2.</span> <span class="toc-text">基础工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jps"><span class="toc-number">2.1.</span> <span class="toc-text">jps</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jstack"><span class="toc-number">2.2.</span> <span class="toc-text">jstack</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/17232182?s=460&amp;v=4"></div><div class="author-info__name text-center">HJW</div><div class="author-info__description text-center">技术总结</div><div class="follow-button"><a href="https://github.com/hjwjw">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">99</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">70</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">24</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/img/bg.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">HJW's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a><a class="site-page" href="/about">关于</a><a class="site-page" href="/archives">归档</a><a class="site-page" href="/categories">目录</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/books">书目</a></span></div><div id="post-info"><div id="post-title">JVM调优</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-02-16</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Java/">Java</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="JVM内存结构"><a href="#JVM内存结构" class="headerlink" title="JVM内存结构"></a>JVM内存结构</h2><p><img src="https://cdn.jsdelivr.net/gh/hjwjw/hjwjw.github.io@resource/img/20200216215254.png" alt="JVM内存结构" style="zoom:50%;"></p>
+<p>每启动一个线程，JVM就会在栈空间栈分配对应的 <strong>线程栈</strong>, 比如 1MB 的空间（<code>-Xss1m</code>）。</p>
+<p>线程栈也叫做Java方法栈。 如果使用了JNI方法，则会分配一个单独的本地方法栈(Native Stack).</p>
+<p>线程执行过程中，一般会有多个方法组成调用栈(Stack Trace), 比如A调用B，B调用C。。。每执行到一个方法，就会创建对应的 <strong>栈帧</strong>(Frame).</p>
+<p><img src="https://cdn.jsdelivr.net/gh/hjwjw/hjwjw.github.io@resource/img/20200216215503.png" alt="线程栈" style="zoom:50%;"></p>
+<p>栈帧只是一个逻辑上的概念，具体的大小，在一个方法编写完成后基本上就能确定。</p>
+<p>比如返回值需要有一个空间存放吧，每个局部变量都需要对应的地址空间，此外还有操作数栈，以及方法指针(标识这个栈帧对应的是哪个类的哪个方法,指向常量池中的字符串常量）。</p>
+<p>Java程序除了栈内存之外，最主要内存区域就是堆内存了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/hjwjw/hjwjw.github.io@resource/img/20200216215627.png" alt="堆内存" style="zoom:50%;"></p>
+<p>堆内存是所有线程共用的内存空间，理论上大家都可以访问里面的内容。</p>
+<p>但JVM的具体实现一般会有各种优化。</p>
+<p>比如将逻辑上的Java堆,划分为堆(Heap)和非堆(Non-Heap)两个部分. 这种划分的依据在于，我们编写的Java代码，基本上只能使用Heap这部分空间，发生内存分配和回收的主要区域也在这部分，所以有一种说法，这里的Heap也叫GC管理的堆(GC Heap)。</p>
+<p>GC理论中有一个重要的思想，叫做分代。 经过研究发现，程序中分配的对象，要么用过就扔，要么就能存活很久很久。</p>
+<p>JVM将Heap内存分为年轻代（Young generation）和老年代（Old generation, 也叫 Tenured）两部分。</p>
+<p>年轻代还划分为3个内存池，新生代(Eden space)和存活区(Survivor space), 存活区在大部分GC算法中有2个(S0, S1)，S0和S1总有一个是空的,但一般较小，也不浪费多少空间。</p>
+<p>具体实现对新生代还有优化，那就是TLAB(Thread Local Allocation Buffer), 给每个线程先划定一小片空间，你创建的对象先在这里分配，满了再换。这能极大降低并发资源锁定的开销。</p>
+<p>Non-Heap本质上还是Heap，只是一般不归GC管理，里面划分为3个内存池。</p>
+<ul>
+<li>Metaspace, 以前叫持久代(永久代, Permanent generation), Java8换了个名字叫 Metaspace. Java8将方法区移动到了Meta区里面，而方法又是class的一部分。。。和CCS交叉了?</li>
+<li>CCS, Compressed Class Space, 存放class信息的，和 Metaspace 有交叉。</li>
+<li>Code Cache, 存放 JIT 编译器编译后的本地机器代码。</li>
+</ul>
+<p>JVM的内存结构大致如此。</p>
+<p>以上来源自：<a href="https://github.com/cncounter/translation/blob/master/tiemao_2019/22_chat_jvm_troubleshoot/README.md" target="_blank" rel="noopener">https://github.com/cncounter/translation/blob/master/tiemao_2019/22_chat_jvm_troubleshoot/README.md</a></p>
+<h2 id="基础工具"><a href="#基础工具" class="headerlink" title="基础工具"></a>基础工具</h2><h3 id="jps"><a href="#jps" class="headerlink" title="jps"></a>jps</h3><p>全称 Java Virtual Machine Process Status Too 。列出目标系统上已检测到的Java虚拟机（JVM）</p>
+<p>如没有指定远程主机，则显示当前主机当前用户下的Java应用的PID与标识符</p>
+<p><strong>概要</strong></p>
+<p>jps    [参数] [hostid]</p>
+<p><strong>参数</strong></p>
+<p>-q    不输出类名、Jar名和传入main方法的参数 </p>
+<p>-m    输出传入main方法的参数</p>
+<p>-l    显示应用程序<code>main</code>类的完整程序包名称或应用程序JAR文件的完整路径名</p>
+<p>-v    显示传递给JVM的参数</p>
+<p><strong>示例</strong></p>
+<p>在本地启动了一个register服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  hsrm-register git:(master) jps -l</span><br><span class="line">19334 org.jetbrains.jps.cmdline.Launcher</span><br><span class="line">19335 org.hsrm.register.RegisterApplication</span><br><span class="line">19304 org.jetbrains.idea.maven.server.RemoteMavenServer36</span><br><span class="line">537 nutstore.client.gui.NutstoreGUI</span><br><span class="line">19658 sun.tools.jps.Jps</span><br></pre></td></tr></table></figure>
+<h3 id="jstack"><a href="#jstack" class="headerlink" title="jstack"></a>jstack</h3><p>打印Java进程，核心文件或远程调试服务器的Java线程堆栈跟踪。根据堆栈信息可以帮助我们定位到具体的代码</p>
+<p><strong>概要</strong></p>
+<p>jstack [参数] <pid></pid></p>
+<p><strong>pid</strong></p>
+<p>​    为其打印堆栈跟踪的进程ID。该进程必须是Java进程。要获取机器上运行的Java进程的列表，请使用jps</p>
+<p><strong>参数</strong></p>
+<p>-F    当<code>jstack</code>[ <code>-l</code>] <code>pid</code>没有响应时，强制进行堆栈转储</p>
+<p>-l     打印有关锁的其他信息</p>
+<p>-m    不仅会输出Java堆栈信息，还会输出C/C++堆栈信息（比如Native方法</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">HJW</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hjwjw.github.io/posts/1653795f/">https://hjwjw.github.io/posts/1653795f/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hjwjw.github.io">HJW's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JVM/">JVM</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/posts/b399a0b0/"><i class="fa fa-chevron-left">  </i><span>一千行 MySQL 学习笔记-转载</span></a></div><div class="next-post pull-right"><a href="/posts/b161c9c2/"><span>无法创建本地线程分析</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(/img/bg.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2020 By HJW</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.6.1"></script><script src="/js/fancybox.js?version=1.6.1"></script><script src="/js/sidebar.js?version=1.6.1"></script><script src="/js/copy.js?version=1.6.1"></script><script src="/js/fireworks.js?version=1.6.1"></script><script src="/js/transition.js?version=1.6.1"></script><script src="/js/scroll.js?version=1.6.1"></script><script src="/js/head.js?version=1.6.1"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
