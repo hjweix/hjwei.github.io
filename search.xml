@@ -45,7 +45,7 @@
       
         <tags>
             
-            <tag> mysql </tag>
+            <tag> Mysql </tag>
             
         </tags>
       
@@ -364,9 +364,7 @@
       
         <tags>
             
-            <tag> 微服务镜像 </tag>
-            
-            <tag> dockerfile </tag>
+            <tag> Dockerfile </tag>
             
         </tags>
       
@@ -441,7 +439,7 @@
       
         <tags>
             
-            <tag> Docker Registry </tag>
+            <tag> Docker </tag>
             
         </tags>
       
@@ -466,7 +464,7 @@
       
         <tags>
             
-            <tag> Volume </tag>
+            <tag> Docker </tag>
             
         </tags>
       
@@ -491,7 +489,7 @@
       
         <tags>
             
-            <tag> Java </tag>
+            <tag> Shell </tag>
             
         </tags>
       
@@ -718,8 +716,6 @@
       
         <tags>
             
-            <tag> 微服务网站 </tag>
-            
             <tag> Zuul </tag>
             
             <tag> API GateWay </tag>
@@ -745,14 +741,6 @@
       </categories>
       
       
-        <tags>
-            
-            <tag> 刷新配置 </tag>
-            
-            <tag> 配置加密解密 </tag>
-            
-        </tags>
-      
     </entry>
     
     
@@ -775,8 +763,6 @@
         <tags>
             
             <tag> Spring Cloud Config </tag>
-            
-            <tag> 微服务配置管理 </tag>
             
         </tags>
       
@@ -805,8 +791,6 @@
             
             <tag> Turbine </tag>
             
-            <tag> 微服务容错 </tag>
-            
         </tags>
       
     </entry>
@@ -831,8 +815,6 @@
         <tags>
             
             <tag> Feign </tag>
-            
-            <tag> 声明式REST API </tag>
             
         </tags>
       
@@ -882,7 +864,7 @@
       
         <tags>
             
-            <tag> Nginx+tomcat </tag>
+            <tag> Nginx </tag>
             
         </tags>
       
@@ -933,8 +915,6 @@
         <tags>
             
             <tag> Actuator </tag>
-            
-            <tag> 微服务监控端口 </tag>
             
         </tags>
       
@@ -1263,7 +1243,7 @@
       
         <tags>
             
-            <tag> web service </tag>
+            <tag> WebService </tag>
             
         </tags>
       
@@ -1285,12 +1265,6 @@
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> springload </tag>
-            
-        </tags>
       
     </entry>
     
@@ -1338,7 +1312,7 @@
       
         <tags>
             
-            <tag> jsp </tag>
+            <tag> JSP </tag>
             
         </tags>
       
@@ -1363,9 +1337,9 @@
       
         <tags>
             
-            <tag> spring </tag>
+            <tag> Spring </tag>
             
-            <tag> security </tag>
+            <tag> Security </tag>
             
         </tags>
       
